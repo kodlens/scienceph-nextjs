@@ -107,7 +107,7 @@ const Navbar = ( { menu } : { menu: NavbarProps[] } ) => {
                         key={subItem.label}
                         href={subItem.href}
                         onClick={() => setOpenDesktopMenu(null)}
-                        className="block border-b border-[#edf3f8] px-4 py-3 text-sm leading-5 font-medium text-[#1f2937] whitespace-normal break-words last:border-b-0 hover:bg-[#f3f8fd] hover:text-[#005299]"
+                        className="block border-b border-[#edf3f8] px-4 py-3 text-sm leading-5 font-medium text-[#1f2937] whitespace-normal wrap-break-word last:border-b-0 hover:bg-[#f3f8fd] hover:text-[#005299]"
                       >
                         {subItem.label}
                       </Link>
@@ -159,7 +159,7 @@ const Navbar = ( { menu } : { menu: NavbarProps[] } ) => {
                           setOpenMobileMenu(null);
                           setIsMobileOpen(false);
                         }}
-                        className="block border-t border-[#edf3f8] px-6 py-2.5 text-sm leading-5 font-medium text-[#1f2937] whitespace-normal break-words hover:bg-[#f3f8fd] hover:text-[#005299]"
+                        className="block border-t border-[#edf3f8] px-6 py-2.5 text-sm leading-5 font-medium text-[#1f2937] whitespace-normal wrap-break-word hover:bg-[#f3f8fd] hover:text-[#005299]"
                       >
                         {subItem.label}
                       </Link>
