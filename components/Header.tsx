@@ -3,7 +3,7 @@ import Navbar from "./navbar/Navbar"
 const Header = () => {
 
   return (
-    <header className="relative z-120 overflow-visible border-b border-[#d8e3ef] bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-120 overflow-visible border-b border-[#d8e3ef] bg-white/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-295 items-center justify-between gap-4 px-4 py-4">
         <div className="flex items-center gap-3">
           <div className="grid h-12 w-12 place-content-center rounded-xl bg-[linear-gradient(135deg,#0ea5e9,#2563eb)] text-lg font-bold text-white shadow-[0_12px_24px_-16px_rgba(37,99,235,0.7)]">
@@ -29,8 +29,8 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="sticky top-0 z-50 overflow-visible border-y border-[#0e4a84] bg-[linear-gradient(90deg,#0f4f89,#1b6bb0)] shadow-[0_8px_20px_-14px_rgba(30,79,129,0.8)]">
-        <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between overflow-visible px-4 py-2.5 text-white">
+      <div className="relative z-50 overflow-visible border-y border-[#0e4a84] bg-[linear-gradient(90deg,#0f4f89,#1b6bb0)] shadow-[0_8px_20px_-14px_rgba(30,79,129,0.8)]">
+        <div className="mx-auto flex w-full max-w-295 items-center justify-between overflow-visible px-4 py-2.5 text-white">
 
           <Navbar />
 

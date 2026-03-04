@@ -46,8 +46,8 @@ const navItems = [
   },
   {
     label: "About",
-    slug: "about",
-    href: "/about",
+    slug: "about-us",
+    href: "/about-us",
     // dropdown: [
     //   { label: "Mission", slug: "mission", href: "#" },
     //   { label: "Leadership", slug: "leadership", href: "#" },
@@ -55,9 +55,9 @@ const navItems = [
     // ],
   },
   {
-    label: "Contact",
-    slug: "contact",
-    href: "/contact",
+    label: "Contact Us",
+    slug: "contact-us",
+    href: "/contact-us",
   },
 ];
 
