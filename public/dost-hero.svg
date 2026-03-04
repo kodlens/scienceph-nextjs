@@ -1,0 +1,56 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A3F75"/>
+      <stop offset="1" stop-color="#1386C6"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 260) rotate(30) scale(580 360)">
+      <stop stop-color="#7ED6FF" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="#7ED6FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1480 780) rotate(-15) scale(640 360)">
+      <stop stop-color="#B2F0FF" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#B2F0FF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse">
+      <path d="M54 0H0V54" stroke="#BEEBFF" stroke-opacity="0.09" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+  <rect width="1920" height="1080" fill="url(#glow1)"/>
+  <rect width="1920" height="1080" fill="url(#glow2)"/>
+
+  <g opacity="0.22">
+    <circle cx="340" cy="760" r="200" stroke="#E6FAFF" stroke-width="2"/>
+    <circle cx="340" cy="760" r="140" stroke="#E6FAFF" stroke-width="2"/>
+    <circle cx="340" cy="760" r="80" stroke="#E6FAFF" stroke-width="2"/>
+    <circle cx="340" cy="760" r="16" fill="#E6FAFF"/>
+  </g>
+
+  <g opacity="0.2">
+    <circle cx="1540" cy="260" r="170" stroke="#E6FAFF" stroke-width="2"/>
+    <circle cx="1540" cy="260" r="110" stroke="#E6FAFF" stroke-width="2"/>
+    <circle cx="1540" cy="260" r="54" stroke="#E6FAFF" stroke-width="2"/>
+    <circle cx="1540" cy="260" r="14" fill="#E6FAFF"/>
+  </g>
+
+  <g opacity="0.26">
+    <path d="M900 280L1000 338L1000 454L900 512L800 454L800 338L900 280Z" stroke="#E9FCFF" stroke-width="3"/>
+    <path d="M1110 550L1170 585L1170 655L1110 690L1050 655L1050 585L1110 550Z" stroke="#E9FCFF" stroke-width="3"/>
+    <path d="M690 450L750 485L750 555L690 590L630 555L630 485L690 450Z" stroke="#E9FCFF" stroke-width="3"/>
+  </g>
+
+  <g opacity="0.18">
+    <path d="M540 980C770 880 1030 860 1340 910C1510 940 1670 920 1840 850" stroke="#F4FFFF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M80 150C230 120 370 130 510 200C640 265 760 282 900 252" stroke="#F4FFFF" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.24">
+    <rect x="1260" y="620" width="420" height="220" rx="14" fill="#0B2F54" stroke="#DDF8FF" stroke-opacity="0.38"/>
+    <text x="1290" y="690" fill="#E9FCFF" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">DOST Philippines</text>
+    <text x="1290" y="736" fill="#CCEEFF" font-family="Arial, Helvetica, sans-serif" font-size="23">Department of Science and Technology</text>
+    <text x="1290" y="772" fill="#CCEEFF" font-family="Arial, Helvetica, sans-serif" font-size="20">Innovation • Research • Public Service</text>
+  </g>
+</svg>
