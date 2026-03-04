@@ -3,7 +3,7 @@ import RevealOnScroll from '../RevealOnScroll'
 import Link from 'next/link'
 import SectionTitle from '../SectionTitle';
 import { Article } from '@/types/article';
-import { dateFormatter, extractFirstImage, truncate } from '@/lib/utils';
+import { dateFormatter, truncate } from '@/lib/utils';
 
 
 const MostPopularArticlesContent = ( { articles} : {articles : Article[] }) => {
