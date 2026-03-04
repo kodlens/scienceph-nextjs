@@ -7,10 +7,10 @@ const Header = () => {
     <header className="sticky top-0 z-120 overflow-visible border-b border-[#d8e3ef] bg-white/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-295 items-center justify-between gap-4 px-4 py-4">
         <div className="flex items-center gap-3">
-          <Image src="/images/scienceph-logo.png" 
+          <Image src="/images/stii.png" 
             alt="SciencePH Logo" 
-            width={24} 
-            height={24} />
+            width={34} 
+            height={34} />
           <div>
             <p className="text-2xl font-black leading-none text-[#14345a]">science.ph</p>
             <p className="text-xs tracking-wide text-[#cf2e2e]">Science for every Juan</p>

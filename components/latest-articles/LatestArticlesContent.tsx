@@ -19,7 +19,9 @@ const LatestArticlesContent = ( { articles } : { articles: Article[] } ) => {
             <div className="p-5">
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#b32626]">Feature Story</p>
               <h3 className="text-2xl font-bold leading-tight text-[#0f365f] md:text-3xl">
-                {articles[0].title}
+                <Link href={`/articles/${articles[0].slug}`} className="hover:underline">
+                  {articles[0].title}
+                </Link>
               </h3>
               <p className="mt-3 text-sm leading-6 text-[#4d5f74]">
                 { truncate(articles[0].description_text, 180, "...") }
