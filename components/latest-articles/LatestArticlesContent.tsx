@@ -3,7 +3,7 @@ import RevealOnScroll from '../RevealOnScroll'
 import { dateFormatter, extractFirstImage, truncate } from '@/lib/utils';
 import { Article } from '@/types/article';
 
-const LatestarticlesContent = ( { articles } : { articles: Article[] } ) => {
+const LatestArticlesContent = ( { articles } : { articles: Article[] } ) => {
 
   return (
     <section className="mx-auto w-full max-w-295 px-4 pt-8 pb-10 md:pt-10">
@@ -29,7 +29,7 @@ const LatestarticlesContent = ( { articles } : { articles: Article[] } ) => {
 
           <aside className="max-h-130 overflow-y-auto divide-y divide-[#dee8f2]">
             <div className="flex items-center justify-between px-4 py-3">
-              <h2 className="text-lg font-bold text-[#123a63]">Latest articles</h2>
+              <h2 className="text-lg font-bold text-[#123a63]">DOST News & Releases</h2>
               <span className="rounded-full border border-[#f4c2c2] bg-[#fff3f3] px-2.5 py-1 text-[11px] font-semibold text-[#b32626]">
                 Updated
               </span>
@@ -66,4 +66,4 @@ const LatestarticlesContent = ( { articles } : { articles: Article[] } ) => {
   )
 }
 
-export default LatestarticlesContent
+export default LatestArticlesContent

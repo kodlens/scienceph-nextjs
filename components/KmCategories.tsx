@@ -47,12 +47,11 @@ const KmCategories = () => {
   ];
 
 
-
   return (
     <section className="mx-auto w-full max-w-[1180px] px-4 pb-10">
       <div className="rounded-2xl border border-[#cfdeeb] bg-[linear-gradient(180deg,#f8fbff_0%,#f2f7fc_100%)] p-5">
         <SectionTitle
-          title="Discover Knowledge Categories"
+          title="Knowledge Categories"
           subtitle="Browse curated knowledge areas and jump straight to topics"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
