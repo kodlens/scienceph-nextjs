@@ -1,20 +1,12 @@
 import React from 'react'
 import NavbarMenu from './NavbarMenu';
+import { fetchFromLaravel } from '@/lib/api';
+import { Category } from '@/types/category';
 
 async function getCategories() {
-  const res = await fetch(
-    `${process.env.LARAVEL_API_URL}/load-categories`,
-      {
-        next: { revalidate: 60 },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch categories");
-    }
-
-    return res.json();
-  }
+  return fetchFromLaravel<Category[]>("load-categories", 60);
+ 
+}
 
 
 
