@@ -5,8 +5,6 @@ import SectionTitle from './SectionTitle';
 
 const LatestArticles = () => {
 
-  
-
 const latestArticles = [
   {
     title: "AI Helps Farmers Predict Monsoon-Driven Crop Risks",

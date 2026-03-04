@@ -58,7 +58,6 @@ const navItems = [
     label: "Contact",
     slug: "contact",
     href: "/contact",
-    
   },
 ];
 
