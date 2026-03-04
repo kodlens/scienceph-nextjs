@@ -1,70 +1,72 @@
-import Link from "next/link";
+import React from 'react'
+import NavbarMenu from './NavbarMenu';
 
-const Navbar = () => {
+async function getCategories() {
+  const res = await fetch(
+    `${process.env.LARAVEL_API_URL}/load-categories`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch categories");
+    }
+
+    return res.json();
+  }
 
 
-  const navItems = [
-    { label: "Home", href: "#" },
-    {
-      label: "Categories",
-      href: "#",
-      dropdown: [
-        { label: "Science", href: "#" },
-        { label: "Medicine", href: "#" },
-        { label: "Agriculture", href: "#" },
-        { label: "Technology", href: "#" },
-        { label: "Disaster Mitigation", href: "#" },
-      ],
-    },
-    {
-      label: "About",
-      href: "#",
-      dropdown: [
-        { label: "Mission", href: "#" },
-        { label: "Leadership", href: "#" },
-        { label: "Partners", href: "#" },
-      ],
-    },
-    {
-      label: "Contact",
-      href: "#",
-      dropdown: [
-        { label: "Help Desk", href: "#" },
-        { label: "Regional Offices", href: "#" },
-        { label: "Media", href: "#" },
-      ],
-    },
-  ];
 
+
+
+const Navbar = async() => {
+
+   const categories = await getCategories(); // ✅ SSR fetch
+
+   
+const navItems = [
+  { label: "Home", slug: "home", href: "/" },
+  {
+    label: "Categories",
+    slug: "categories",
+    href: "#",
+    // dropdown: [
+    //   { label: "Science", slug: "science", href: "#" },
+    //   { label: "Medicine", slug: "medicine", href: "#" },
+    //   { label: "Agriculture", slug: "agriculture", href: "#" },
+    //   { label: "Technology", slug: "technology", href: "#" },
+    //   { label: "Disaster Mitigation", slug: "disaster-mitigation", href: "#" },
+    // ],
+    dropdown: categories.map( (cat: { name: string; slug: string }) => ({
+      label: cat.name,
+      slug: cat.slug,
+      href: `/category/${cat.slug}`
+    }))
+  },
+  {
+    label: "About",
+    slug: "about",
+    href: "/about",
+    // dropdown: [
+    //   { label: "Mission", slug: "mission", href: "#" },
+    //   { label: "Leadership", slug: "leadership", href: "#" },
+    //   { label: "Partners", slug: "partners", href: "#" },
+    // ],
+  },
+  {
+    label: "Contact",
+    slug: "contact",
+    href: "/contact",
+    
+  },
+];
 
 
   return (
-    <nav className="flex flex-wrap items-center gap-1 text-sm font-semibold tracking-wide">
-      {navItems.map((item) => (
-        <div key={item.label} className="group relative">
-          <Link
-            href={item.href}
-            className="inline-flex items-center rounded-md px-3 py-2 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-          >
-            {item.label}
-            {item.dropdown ? <span className="ml-1.5 text-[10px]">v</span> : null}
-          </Link>
-          {item.dropdown ? (
-            <div className="invisible absolute left-0 top-full z-[70] mt-2 min-w-[240px] overflow-hidden rounded-lg border border-[#d7e5f3] bg-white opacity-0 shadow-2xl transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-              {item.dropdown.map((subItem) => (
-                <Link
-                  key={subItem.label}
-                  href={subItem.href}
-                  className="block border-b border-[#edf3f8] px-4 py-3 text-sm font-medium text-[#1f2937] last:border-b-0 hover:bg-[#f3f8fd] hover:text-[#005299]"
-                >
-                  {subItem.label}
-                </Link>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      ))}
-    </nav>
+    <>
+      <NavbarMenu menu={navItems} />
+    </>
   )
 }
 
