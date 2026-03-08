@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import RevealOnScroll from '../RevealOnScroll'
 import { dateFormatter, extractFirstImage, truncate } from '@/lib/utils';
-import { Article } from '@/types/article';
+import { Article } from '@/types/material';
 
 const LatestArticlesContent = ( { articles } : { articles: Article[] } ) => {
 

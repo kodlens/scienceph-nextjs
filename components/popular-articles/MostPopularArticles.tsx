@@ -1,5 +1,5 @@
 import { fetchFromLaravel } from "@/lib/api";
-import { Article } from "@/types/article";
+import { Article } from "@/types/material";
 import MostPopularArticlesContent from "./MostPopularArticlesContent";
 
 async function getMostPopularArticles() {

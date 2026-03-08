@@ -1,6 +1,6 @@
 import { Category } from "./category";
 
-export type Article = {
+export type Material = {
   id: number;
   title: string;
   slug: string;

@@ -1,5 +1,5 @@
 import { fetchFromLaravel } from "@/lib/api";
-import { Article } from "@/types/article";
+import { Article } from "@/types/material";
 import Link from "next/link";
 import { dateFormatter, truncate } from "@/lib/utils";
 

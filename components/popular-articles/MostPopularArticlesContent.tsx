@@ -2,7 +2,7 @@ import React from 'react'
 import RevealOnScroll from '../RevealOnScroll'
 import Link from 'next/link'
 import SectionTitle from '../SectionTitle';
-import { Article } from '@/types/article';
+import { Article } from '@/types/material';
 import { dateFormatter, truncate } from '@/lib/utils';
 
 
