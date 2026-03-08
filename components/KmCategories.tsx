@@ -2,50 +2,16 @@ import React from 'react'
 import RevealOnScroll from './RevealOnScroll'
 import Link from 'next/link'
 import SectionTitle from './SectionTitle';
+import { fetchFromLaravel } from '@/lib/api';
+import { Subject } from '@/types/subject';
 
-const KmCategories = () => {
+async function getBroadClasses() {
+  return fetchFromLaravel<Subject[]>("load-broad-classes", 60);
+}
 
 
-
-  const knowledgeCategories = [
-    {
-      title: "Science",
-      topics: "11 topics",
-      items: ["Mathematics", "Astronomy", "Physics", "Chemistry", "Geology"],
-    },
-    {
-      title: "Medicine",
-      topics: "16 topics",
-      items: ["Public health", "Pathology", "Internal medicine", "Surgery", "Ophthalmology"],
-    },
-    {
-      title: "Agriculture",
-      topics: "5 topics",
-      items: ["Plant culture", "Forestry", "Animal culture", "Aquaculture", "Agri policy"],
-    },
-    {
-      title: "Technology",
-      topics: "16 topics",
-      items: [
-        "Civil engineering",
-        "Ocean engineering",
-        "Environmental technology",
-        "Road systems",
-        "Rail operations",
-      ],
-    },
-    {
-      title: "Disaster Mitigation",
-      topics: "4 topics",
-      items: ["Preparedness", "Emergency management", "Hazard mitigation", "Risk management"],
-    },
-    {
-      title: "Public Affairs",
-      topics: "10 topics",
-      items: ["Social welfare", "Peace and order", "International relations", "Economy", "Governance"],
-    },
-  ];
-
+const KmCategories = async () => {  
+  const broadClasses = await getBroadClasses() || [];
 
   return (
     <section className="mx-auto w-full max-w-[1180px] px-4 pb-10">
@@ -55,29 +21,30 @@ const KmCategories = () => {
           subtitle="Browse curated knowledge areas and jump straight to topics"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {knowledgeCategories.map((category, index) => (
+          {broadClasses.map((broadClass, index) => (
             <RevealOnScroll
-              key={category.title}
+              key={broadClass.subject}
               as="article"
               delay={index * 100}
               className="rounded-2xl border border-[#d4e0ec] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#bfd4e8] hover:shadow-md"
             >
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-xl font-bold text-[#122840]">{category.title}</h3>
+                <h3 className="text-xl font-bold text-[#122840]">{broadClass.subject}</h3>
                 <span className="rounded-full border border-[#f2c3c3] bg-[#fff2f2] px-2 py-0.5 text-[11px] font-semibold uppercase text-[#b32626]">
-                  {category.topics}
+                  {/* {broadClass.topics} this it the count of every subject heading*/}
+                  {broadClass.subject_headings.length} topics
                 </span>
               </div>
               <ul className="space-y-2.5">
-                {category.items.map((item) => (
-                  <li key={item} className="text-sm text-[#42566e]">
+                {broadClass.subject_headings.splice(0, 5).map((item) => (
+                  <li key={item.id} className="text-sm text-[#42566e]">
                     <span className="mr-2 text-[#0f66ab]">›</span>
-                    {item}
+                    {item.subject_heading}
                   </li>
                 ))}
               </ul>
               <Link
-                href="#"
+                href={`/category/${broadClass.slug}`}
                 className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wide text-[#b32626] hover:text-[#8f1d1d]"
               >
                 View all category topics

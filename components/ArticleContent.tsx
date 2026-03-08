@@ -4,7 +4,7 @@ import Link from "next/link";
 import { dateFormatter, truncate } from "@/lib/utils";
 
 async function getArticle(slug: string) {
-  return fetchFromLaravel<Article>(`get-article/${slug}`, 300); // cache for 5 minutes
+  return fetchFromLaravel<Article>(`get-material/${slug}`, 300); // cache for 5 minutes
 }
 
 const dummyRelevantArticles = [

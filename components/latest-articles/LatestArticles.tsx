@@ -3,7 +3,7 @@ import { fetchFromLaravel } from '@/lib/api';
 import { Article } from '@/types/article';
 
 async function getLatestArticles() {
-  return fetchFromLaravel<Article[]>("load-latest-articles", 60);
+  return fetchFromLaravel<Article[]>("load-latest-materials", 60);
 }
 
 const LatestArticles = async () => {

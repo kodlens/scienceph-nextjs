@@ -1,6 +1,10 @@
 import React from 'react'
+import MainSearchInput from './MainSearchInput'
 
 const SearchInputAndHero = () => {
+
+
+
   return (
     <section
       className="relative z-0 overflow-hidden"
@@ -19,22 +23,7 @@ const SearchInputAndHero = () => {
           Hi! How can we help you discover science today?
         </h1>
 
-        <div className="mt-6 w-full max-w-230 rounded-full p-2 shadow-xl">
-          <div className="flex items-center gap-3 rounded-full border border-[#efc2c2] bg-white pr-3 pl-6 py-2">
-            <span className="text-[#4b6f94]">Search</span>
-            <input
-              type="text"
-              placeholder="Try: scholarships, climate adaptation, engineering"
-              className="w-full border-none bg-transparent text-base text-[#1f2937] outline-none placeholder:text-[#95a3b3]"
-            />
-            <button
-              type="button"
-              className="rounded-full bg-[#c92a2a] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#ab1f1f]"
-            >
-              Search
-            </button>
-          </div>
-        </div>
+        <MainSearchInput />
 
         <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
           {[
