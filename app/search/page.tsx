@@ -41,12 +41,12 @@ export default async function Search({
 
   return (
     <main className="min-h-screen bg-[#edf2f6]">
-      <div className="bg-[#154a7a] py-4 text-white">
+      {/* <div className="bg-[#154a7a] py-4 text-white">
         <div className="mx-auto flex w-full max-w-295 items-center justify-between px-4">
           <p className="text-xl font-bold">STII-KM</p>
           <p className="text-sm font-semibold">Main Search</p>
         </div>
-      </div>
+      </div> */}
 
       <div className="mx-auto w-full max-w-295 px-4 py-6">
         <div className="rounded-2xl border border-[#d2dbe5] bg-[#f5f7fa] p-3 shadow-sm">
