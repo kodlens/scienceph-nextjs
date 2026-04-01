@@ -1,10 +1,10 @@
 import { fetchFromLaravel } from "@/lib/api";
-import { Article } from "@/types/material";
+import type { Material } from "@/types/material";
 import Link from "next/link";
 import { dateFormatter, truncate } from "@/lib/utils";
 
-async function getArticle(slug: string) {
-  return fetchFromLaravel<Article>(`get-material/${slug}`, 300); // cache for 5 minutes
+async function Material(slug: string) {
+  return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
 }
 
 const dummyRelevantArticles = [
@@ -36,15 +36,15 @@ const dummyRelevantArticles = [
 ];
 
 const ArticleContent = async ({ slug }: { slug: string }) => {
-  const article = await getArticle(slug);
+  const article = await Material(slug);
 
   return (
-    <main className="mx-auto w-full max-w-[1180px] px-4 py-8 md:py-10">
+    <main className="mx-auto w-full max-w-295 px-4 py-8 md:py-10">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(300px,1fr)]">
         <article className="rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
           <div className="p-5 md:p-7">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#b32626]">
-              {article.category?.name || "General"}
+              {article.category?.category || "General"}
             </p>
             <h1 className="mt-2 text-2xl font-black leading-tight text-[#122840] md:text-4xl">
               {article.title}

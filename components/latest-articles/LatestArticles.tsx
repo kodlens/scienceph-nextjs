@@ -1,9 +1,9 @@
 import LatestNewsContent from './LatestArticlesContent';
 import { fetchFromLaravel } from '@/lib/api';
-import { Article } from '@/types/material';
+import { Material } from '@/types/material';
 
 async function getLatestArticles() {
-  return fetchFromLaravel<Article[]>("load-latest-materials", 60);
+  return fetchFromLaravel<Material[]>("load-latest-materials", 60);
 }
 
 const LatestArticles = async () => {
