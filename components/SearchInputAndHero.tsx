@@ -3,8 +3,6 @@ import MainSearchInput from './MainSearchInput'
 
 const SearchInputAndHero = () => {
 
-
-
   return (
     <section
       className="relative z-0 overflow-hidden"

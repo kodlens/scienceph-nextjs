@@ -30,8 +30,8 @@ const navItems = [
     //   { label: "Technology", slug: "technology", href: "#" },
     //   { label: "Disaster Mitigation", slug: "disaster-mitigation", href: "#" },
     // ],
-    dropdown: categories.map( (cat: { name: string; slug: string }) => ({
-      label: cat.name,
+    dropdown: categories.map( (cat: { category: string; slug: string }) => ({
+      label: cat.category,
       slug: cat.slug,
       href: `/category/${cat.slug}`
     }))

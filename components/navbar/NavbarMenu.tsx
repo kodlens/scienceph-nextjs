@@ -66,7 +66,7 @@ const Navbar = ( { menu } : { menu: NavbarProps[] } ) => {
       </button>
 
       <div className="hidden items-center gap-1 md:flex">
-        {menu.map((item) => {
+        { menu.map((item) => {
           const isOpen = openDesktopMenu === item.label;
 
           return (
