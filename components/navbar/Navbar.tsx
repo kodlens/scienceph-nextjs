@@ -5,7 +5,6 @@ import { Category } from '@/types/category';
 
 async function getCategories() {
   return fetchFromLaravel<Category[]>("load-categories", 60);
- 
 }
 
 

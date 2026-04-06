@@ -1,9 +1,9 @@
 import { fetchFromLaravel } from "@/lib/api";
-import { Material } from "@/types/material";
+import type { Material } from "@/types/material";
 import Link from "next/link";
 import { dateFormatter, truncate } from "@/lib/utils";
 
-async function getArticle(slug: string) {
+async function Material(slug: string) {
   return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
 }
 
@@ -36,7 +36,7 @@ const dummyRelevantArticles = [
 ];
 
 const ArticleContent = async ({ slug }: { slug: string }) => {
-  const article = await getArticle(slug);
+  const article = await Material(slug);
 
   return (
     <main className="mx-auto w-full max-w-295 px-4 py-8 md:py-10">
