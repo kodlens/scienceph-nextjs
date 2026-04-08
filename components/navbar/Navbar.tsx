@@ -4,12 +4,8 @@ import { fetchFromLaravel } from '@/lib/api';
 import { Category } from '@/types/category';
 
 async function getCategories() {
-  return fetchFromLaravel<Category[]>("load-categories", 60);
+  return await fetchFromLaravel<Category[]>("load-categories", 60);
 }
-
-
-
-
 
 const Navbar = async() => {
 

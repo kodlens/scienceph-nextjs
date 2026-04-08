@@ -95,12 +95,7 @@ export default async function CategoryPage({
 
   return (
     <main className="min-h-screen bg-[#edf2f6]">
-      <div className="bg-[#154a7a] py-4 text-white">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4">
-          <p className="text-xl font-bold">STII-KM</p>
-          <p className="text-sm font-semibold">Category Results</p>
-        </div>
-      </div>
+     
 
       <div className="mx-auto w-full max-w-6xl px-4 py-6">
         <section className="rounded-2xl border border-[#d2dbe5] bg-white p-4 shadow-sm">

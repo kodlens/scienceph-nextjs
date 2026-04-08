@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import RevealOnScroll from '../RevealOnScroll'
 import { dateFormatter, extractFirstImage, truncate } from '@/lib/utils';
-import { Article } from '@/types/material';
+import { Material } from '@/types/material';
 
-const LatestArticlesContent = ( { articles } : { articles: Article[] } ) => {
+const LatestArticlesContent = ( { articles } : { articles: Material[] } ) => {
 
   return (
     <section className="mx-auto w-full max-w-295 px-4 pt-8 pb-10 md:pt-10">
@@ -36,7 +36,7 @@ const LatestArticlesContent = ( { articles } : { articles: Article[] } ) => {
                 Updated
               </span>
             </div>
-            {articles.slice(1,9).map((item:Article, index:number) => (
+            {articles.slice(1,9).map((item:Material, index:number) => (
               <RevealOnScroll
                 key={item.title}
                 as="article"
