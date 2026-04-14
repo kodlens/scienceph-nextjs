@@ -86,8 +86,8 @@ export default async function Search({
 
 
       <div className="flex gap-4 mt-6 w-full lg:max-w-6xl">
-        {/* sidebar (categories, subject-headings */}
-        <div className=" flex flex-col gap-4 max-w-4xl  ">
+        {/* sidebar (categories, topics */}
+        <div className=" flex flex-col gap-4 w-100">
           {/* categories */}
           <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
             <div className="border-b border-[#dce5ef] bg-[linear-gradient(135deg,#f8fbff_0%,#eef5fb_100%)] px-6 py-5">
@@ -122,9 +122,7 @@ export default async function Search({
                       <p className="text-sm font-bold leading-6 text-[#114878] transition group-hover:text-[#0b66b2]">
                         {item.category}
                       </p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-[#7a8ea5]">
-                        View related materials
-                      </p>
+                      
                     </div>
                     <span className="inline-flex min-w-11 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold text-[#245b8f] ring-1 ring-[#d8e3ee] transition group-hover:bg-[#0b66b2] group-hover:text-white group-hover:ring-[#0b66b2]">
                       {item.total}
