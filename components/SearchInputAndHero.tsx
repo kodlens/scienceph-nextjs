@@ -1,5 +1,4 @@
-import React from 'react'
-import MainSearchInput from './MainSearchInput'
+import InputSearch from './InputSearch'
 
 const SearchInputAndHero = () => {
 
@@ -21,9 +20,12 @@ const SearchInputAndHero = () => {
           Hi! How can we help you discover science today?
         </h1>
 
-        <MainSearchInput />
+        {/* <MainSearchInput /> */}
+        <div className='py-8 w-full'>
+          <InputSearch query="" />
+        </div>
 
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           {[
             { label: "All", active: true },
             { label: "News & Blog", active: false },

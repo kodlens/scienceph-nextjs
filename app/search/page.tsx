@@ -1,4 +1,5 @@
 import InputSearch from "@/components/InputSearch";
+import Pagination from "@/components/Pagination";
 import { fetchFromLaravel } from "@/lib/api";
 //import ReactPagination from "@/components/pagination/ReactPagination";
 import { dateFormatter, truncate } from "@/lib/utils";
@@ -25,31 +26,31 @@ async function getMaterial(param: string, perPage: number) {
 }
 
 
-
+type Props= {
+  s?:string; 
+  page?: string;
+  category?: string;
+  topics?: string;
+}
 export default async function Search({
   searchParams,
 }: {
-  searchParams: Promise<{ s?: string; page?: string }>;
+  searchParams: Promise<Props>;
 }) {
   const params = await searchParams;
   
   const query = (params.s || "").trim();
+  const cat = (params.category || "").trim();
+  const topics = (params.topics || "").trim();
 
-  // const rawPage = Number(params.page || "1");
-  // const currentQueryPage = Number.isFinite(rawPage) && rawPage > 0 ? Math.floor(rawPage) : 1;
-  // const hasQuery = query.length > 0;
+  console.log(params);
+  
 
   const results = await getMaterial(query, 10);
 
   const categoryCounts = Array.isArray(results.meta.category_counts) ? results.meta.category_counts : [];
   const subjectHeadingCounts = Array.isArray(results.meta.subject_heading_counts) ? results.meta.subject_heading_counts : [];
   const searchResults = Array.isArray(results.data.data) ? results.data.data : [];
-
-  // const resultCount = materials?.total ?? results.length;
-  // const currentPage = materials?.current_page ?? 1;
-  // const lastPage = materials?.last_page ?? 1;
-  // const from = materials?.from ?? (results.length > 0 ? 1 : 0);
-  // const to = materials?.to ?? results.length;
 
   return (
 
@@ -63,10 +64,36 @@ export default async function Search({
       </div>
       {/* Search Container */}
 
+      {/* filter */}
+      <div className="flex my-4">
 
-      <div className="flex gap-4 mt-6 w-full lg:max-w-6xl">
+        <div className="font-bold">Filter: </div>
+
+        { query && (
+          <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#dce5ef] px-3 py-1 text-xs font-extrabold text-[#114878]">
+            {/* format query from slug */}
+            {query.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+          </div>
+        )}
+
+        { cat && (
+          <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#cce5ff] px-3 py-1 text-xs font-extrabold text-[#0b66b2]">
+            {/* format category from slug */}
+            {cat.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+          </div>
+        )}
+        { topics && (
+          <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#f6e3c8] px-3 py-1 text-xs font-extrabold text-[#9a5a11]">
+            {/* format topics from slug */}
+            {topics.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+          </div>
+        )}
+
+      </div>
+
+      <div className="flex gap-4 w-full lg:max-w-6xl">
         {/* sidebar (categories, topics */}
-        <div className=" flex flex-col gap-4 w-100">
+        <div className=" flex flex-col gap-4 w-87.5">
           {/* categories */}
           <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
             <div className="border-b border-[#dce5ef] bg-[linear-gradient(135deg,#f8fbff_0%,#eef5fb_100%)] px-6 py-5">
@@ -83,10 +110,6 @@ export default async function Search({
                   {categoryCounts.length}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-[#5a6f87]">
-                Explore the closest category matches for
-                <span className="font-semibold text-[#123b63]"> {query || "your keyword"}</span>.
-              </p>
             </div>
 
             { categoryCounts.length > 0 ? (
@@ -134,10 +157,6 @@ export default async function Search({
                   {subjectHeadingCounts.length}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-[#73614d]">
-                Narrow this search using the most relevant topics for
-                <span className="font-semibold text-[#5b3d21]"> {query || "your keyword"}</span>.
-              </p>
             </div>
 
             { subjectHeadingCounts.length > 0 ? (
@@ -145,15 +164,12 @@ export default async function Search({
                 {subjectHeadingCounts.map((item:SubjectHeadingCount, index:number) => (
                   <Link
                     key={index}
-                    href={`/search?s=${query}&subject-heading=${item.subject_heading_slug}`}
+                    href={`/search?s=${query}&category=${cat}&topics=${item.subject_heading_slug}`}
                     className="group flex items-center justify-between gap-3 rounded-2xl border border-[#eadfce] bg-[#fffaf4] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#ddb277] hover:bg-[#fff4e7] hover:shadow-[0_14px_30px_-24px_rgba(129,74,14,0.45)]"
                   >
                     <div>
                       <p className="text-sm font-bold leading-6 text-[#6d4720] transition group-hover:text-[#a45b0d]">
                         {item.subject_heading}
-                      </p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-[#a18a72]">
-                        Explore related topics
                       </p>
                     </div>
                     <span className="inline-flex min-w-11 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold text-[#8a531a] ring-1 ring-[#eadfce] transition group-hover:bg-[#a45b0d] group-hover:text-white group-hover:ring-[#a45b0d]">
@@ -214,81 +230,17 @@ export default async function Search({
             </div>
             ) }
 
-        </div>
-      </div>
-
-   
-
-
-      {/* <div className="mx-auto w-full max-w-6xl px-4 py-6">
-        <section className="mt-6">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-xl font-bold text-[#12335b] md:text-2xl">Results</h2>
-            {hasQuery ? (
-              <p className="text-sm text-[#5f738a]">
-                Showing {from}-{to} of {resultCount}
-              </p>
-            ) : null}
+          {/* pagination */}
+          <div className="mt-6 flex justify-center">
+            <Pagination itemsPerPage={10} />
           </div>
 
-          {hasQuery && results.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
-              <h3 className="text-xl font-bold text-[#1a3552]">No results found</h3>
-              <p className="mt-2 text-base text-[#5a6f87]">
-                Try broader keywords or check your spelling.
-              </p>
-            </div>
-          ) : null}
+        </div>
 
-          {!hasQuery ? (
-            <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
-              <h3 className="text-xl font-bold text-[#1a3552]">Start with a keyword</h3>
-              <p className="mt-2 text-base text-[#5a6f87]">
-                Enter any topic, title, or phrase to search the materials database.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              { Array.isArray(results.data) && results.data.map((item:Material) => (
-                <article
-                  key={item.id}
-                  className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6"
-                >
-                  <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                    <Link href={`/articles/${item.slug}`} className="hover:underline">
-                      {item.title}
-                    </Link>
-                  </h3>
-                  <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
-                    <span>Published:</span>
-                    <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
-                  </div>
-                  <p className="mt-3 text-base leading-relaxed text-[#334c67]">
-                    {truncate(item.description_text, 320, "...")}
-                  </p>
-                  <div className="mt-4 border-t border-[#dae4ef] pt-3">
-                    <Link
-                      href={`/articles/${item.slug}`}
-                      className="text-sm text-[#0571c6] hover:underline"
-                    >
-                      /{item.slug}
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
+      </div>
 
-          {hasQuery ? (
-            <ReactPagination
-              currentPage={currentPage}
-              lastPage={lastPage}
-              queryKey="s"
-              queryValue={query}
-            />
-          ) : null}
-        </section>
-      </div> */}
+        
+        
     </main>
   );
 }
