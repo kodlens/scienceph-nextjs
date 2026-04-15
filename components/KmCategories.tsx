@@ -25,10 +25,10 @@ const KmCategories = async () => {
   const categories = await getCategories() || [];
 
   return (
-    <section className="mx-auto w-full max-w-[1180px] px-4 pb-10">
+    <section className="mx-auto w-full max-w-295 px-4 pb-10">
       <div className="rounded-2xl border border-[#cfdeeb] bg-[linear-gradient(180deg,#f8fbff_0%,#f2f7fc_100%)] p-5">
         <SectionTitle
-          title="Categories"
+          title="Topics"
           subtitle="Browse curated knowledge areas and jump straight to topics"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -60,7 +60,7 @@ const KmCategories = async () => {
                 href={`/category/${category.slug}`}
                 className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wide text-[#b32626] hover:text-[#8f1d1d]"
               >
-                View all category topics
+                View all topics
                 <span className="ml-1.5">›</span>
               </Link>
             </RevealOnScroll>

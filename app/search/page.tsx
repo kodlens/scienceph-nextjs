@@ -1,3 +1,4 @@
+import InputSearch from "@/components/InputSearch";
 import { fetchFromLaravel } from "@/lib/api";
 //import ReactPagination from "@/components/pagination/ReactPagination";
 import { dateFormatter, truncate } from "@/lib/utils";
@@ -40,8 +41,6 @@ export default async function Search({
 
   const results = await getMaterial(query, 10);
 
-  console.log('results', results.meta);
-
   const categoryCounts = Array.isArray(results.meta.category_counts) ? results.meta.category_counts : [];
   const subjectHeadingCounts = Array.isArray(results.meta.subject_heading_counts) ? results.meta.subject_heading_counts : [];
   const searchResults = Array.isArray(results.data.data) ? results.data.data : [];
@@ -59,27 +58,7 @@ export default async function Search({
       {/* Search Container */}
       <div className="w-full lg:max-w-6xl">
         {/* search  */}
-        <div className="flex items-center gap-3 rounded-full w-full border border-[#efc2c2] bg-white pr-3 pl-6 py-2
-          focus-within:ring-2 focus-within:ring-red-400 focus-within:ring-offset-1 transition">
-          
-          <span className="text-[#4b6f94] font-bold">Search: </span>
-          
-          <input
-            type="text"
-            placeholder="Try: science and technology, climate adaptation, engineering"
-            className="w-full border-none bg-transparent text-base text-[#1f2937] 
-              outline-none placeholder:text-[#95a3b3] placeholder:italic"
-              value={query}
-              
-          />
-          
-          <button
-            type="button"
-            className="rounded-full bg-[#c92a2a] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#ab1f1f]"
-          >
-            Search
-          </button>
-        </div>
+        <InputSearch query={query}  />
         {/* search */}
       </div>
       {/* Search Container */}
