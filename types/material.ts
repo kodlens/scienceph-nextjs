@@ -9,8 +9,8 @@ export type CategoryCount = {
 
 export type SubjectHeadingCount = {
   subject_heading: string;
-  subject_heading_slug: string;
-  total: number;
+  slug: string;
+  count: number;
 };
 
 

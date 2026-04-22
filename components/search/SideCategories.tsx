@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 type Props = {
   query: string;
   category: string;
-  topics: string;
+  topic: string;
 }
 
-const SideCategorieTest = ({ query, category, topics }: Props) => {
+const SideCategorieTest = ({ query, category, topic }: Props) => {
   const [data, setData] = useState<CategoryCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +24,7 @@ const SideCategorieTest = ({ query, category, topics }: Props) => {
       const params = new URLSearchParams({
         's': query,
         'category': category,
-        'topics': topics
+        'topic': topic
       }).toString();
       setLoading(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/subject/subject-labels?${params}`, {
@@ -40,8 +40,6 @@ const SideCategorieTest = ({ query, category, topics }: Props) => {
       const data = await response.json();
       setData(data);
       setLoading(false);
-
-      console.log(data);
     } catch (error: unknown) {
       console.error('Error fetching category counts:', error);
       setError('Error fetching category counts');
@@ -52,17 +50,9 @@ const SideCategorieTest = ({ query, category, topics }: Props) => {
 
   useEffect(() => {
     loadCategoryCounts();
-  }, [query, category, topics]);
-
+  }, [query, category, topic]);
 
   return (
-    // <div>
-    //     { data.map((item: CategoryCount) => (
-    //         <div key={item.slug}>
-    //             <p>{item.category} - {item.count}</p>
-    //         </div>
-    //     )) }
-    // </div>
     <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
       <div className="border-b border-[#dce5ef] bg-[linear-gradient(135deg,#f8fbff_0%,#eef5fb_100%)] px-6 py-5">
         <div className="flex items-start justify-between gap-3">
@@ -100,7 +90,7 @@ const SideCategorieTest = ({ query, category, topics }: Props) => {
             { data.map((item: CategoryCount) => (
               <Link
                 key={item.slug}
-                href={`/search?s=${query}&category=${item.slug}&topics=${topics}`}
+                href={`/search?s=${query}&category=${item.slug}&topic=${topic}`}
                 className="group flex items-center justify-between gap-3 rounded-2xl border border-[#d8e3ee] bg-[#f9fbfd] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#8fb9df] hover:bg-[#f1f7fc] hover:shadow-[0_14px_30px_-24px_rgba(6,75,130,0.65)]"
               >
                 <div>

@@ -9,9 +9,15 @@ import { ApiResponseWithMeta, SubjectHeadingCount } from "@/types/material";
 import Link from "next/link";
 
 
-async function getMaterial(param: string, perPage: number) {
+async function getMaterial(
+  param: string, 
+  category: string,
+  topic: string,
+  perPage: number) {
   const params = new URLSearchParams({
     's': param,
+    'category': category,
+    'topics': topic,
     'perpage': String(perPage)
   }).toString();
 
@@ -30,7 +36,7 @@ type Props= {
   s?:string; 
   page?: string;
   category?: string;
-  topics?: string;
+  topic?: string;
 }
 
 
@@ -44,12 +50,9 @@ export default async function Search({
   
   const query = (params.s || "").trim();
   const category = (params.category || "").trim();
-  const topics = (params.topics || "").trim();
+  const topic = (params.topic || "").trim();
 
-  console.log(params);
-  
-
-  const results = await getMaterial(query, 10);
+  const results = await getMaterial(query, category, topic, 10);
 
   const categoryCounts = Array.isArray(results.meta.category_counts) ? results.meta.category_counts : [];
   const subjectHeadingCounts = Array.isArray(results.meta.subject_heading_counts) ? results.meta.subject_heading_counts : [];
@@ -85,10 +88,10 @@ export default async function Search({
             {category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
           </div>
         )}
-        { topics && (
+        { topic && (
           <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#f6e3c8] px-3 py-1 text-xs font-extrabold text-[#9a5a11]">
-            {/* format topics from slug */}
-            {topics.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+            {/* format topic from slug */}
+            {topic.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
           </div>
         )}
 
@@ -98,7 +101,7 @@ export default async function Search({
         {/* sidebar (categories, topics */}
         <div className=" flex flex-col gap-4 w-87.5">
           {/* categories */}
-          <SideCategories query={query} category={category} topics={topics}/>
+          <SideCategories query={query} category={category} topic={topic}/>
 
           {/* subject headings */}
           <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
@@ -123,7 +126,7 @@ export default async function Search({
                 {subjectHeadingCounts.map((item:SubjectHeadingCount, index:number) => (
                   <Link
                     key={index}
-                    href={`/search?s=${query}&category=${category}&topics=${item.subject_heading_slug}`}
+                    href={`/search?s=${query}&category=${category}&topics=${item.slug}`}
                     className="group flex items-center justify-between gap-3 rounded-2xl border border-[#eadfce] bg-[#fffaf4] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#ddb277] hover:bg-[#fff4e7] hover:shadow-[0_14px_30px_-24px_rgba(129,74,14,0.45)]"
                   >
                     <div>
@@ -132,7 +135,7 @@ export default async function Search({
                       </p>
                     </div>
                     <span className="inline-flex min-w-11 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold text-[#8a531a] ring-1 ring-[#eadfce] transition group-hover:bg-[#a45b0d] group-hover:text-white group-hover:ring-[#a45b0d]">
-                      {item.total}
+                      {item.count}
                     </span>
                   </Link>
                 ))}
@@ -159,7 +162,7 @@ export default async function Search({
 
         </div>
       </div>
-          
+
     </main>
   );
 }
