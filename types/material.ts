@@ -3,8 +3,8 @@ import { Category } from "./category";
 
 export type CategoryCount = {
   category: string;
-  category_slug: string;
-  total: number;
+  slug: string;
+  count: number;
 };
 
 export type SubjectHeadingCount = {

@@ -1,13 +1,12 @@
 import InputSearch from "@/components/InputSearch";
 import MaterialSearchResults from "@/components/MaterialSearchResults";
 import Pagination from "@/components/Pagination";
+import SideCategories from "@/components/search/SideCategories";
 import { fetchFromLaravel } from "@/lib/api";
 //import ReactPagination from "@/components/pagination/ReactPagination";
 import { dateFormatter, truncate } from "@/lib/utils";
-import { ApiResponseWithMeta, CategoryCount, Material, SubjectHeadingCount } from "@/types/material";
+import { ApiResponseWithMeta, SubjectHeadingCount } from "@/types/material";
 import Link from "next/link";
-
-
 
 
 async function getMaterial(param: string, perPage: number) {
@@ -33,6 +32,9 @@ type Props= {
   category?: string;
   topics?: string;
 }
+
+
+
 export default async function Search({
   searchParams,
 }: {
@@ -41,7 +43,7 @@ export default async function Search({
   const params = await searchParams;
   
   const query = (params.s || "").trim();
-  const cat = (params.category || "").trim();
+  const category = (params.category || "").trim();
   const topics = (params.topics || "").trim();
 
   console.log(params);
@@ -77,10 +79,10 @@ export default async function Search({
           </div>
         )}
 
-        { cat && (
+        { category && (
           <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#cce5ff] px-3 py-1 text-xs font-extrabold text-[#0b66b2]">
             {/* format category from slug */}
-            {cat.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+            {category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
           </div>
         )}
         { topics && (
@@ -96,51 +98,7 @@ export default async function Search({
         {/* sidebar (categories, topics */}
         <div className=" flex flex-col gap-4 w-87.5">
           {/* categories */}
-          <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
-            <div className="border-b border-[#dce5ef] bg-[linear-gradient(135deg,#f8fbff_0%,#eef5fb_100%)] px-6 py-5">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-[#6c8198]">
-                    Browse
-                  </p>
-                  <h2 className="mt-2 text-lg font-extrabold text-[#123b63]">
-                    Related Categories
-                  </h2>
-                </div>
-                <span className="inline-flex min-w-10 items-center justify-center rounded-full bg-[#dcecff] px-3 py-1 text-xs font-extrabold text-[#0b66b2]">
-                  {categoryCounts.length}
-                </span>
-              </div>
-            </div>
-
-            { categoryCounts.length > 0 ? (
-              <div className="space-y-3 px-4 py-4">
-                {categoryCounts.map((item:CategoryCount, index:number) => (
-                  <Link
-                    key={index}
-                    href={`/search?s=${query}&category=${item.category_slug}`}
-                    className="group flex items-center justify-between gap-3 rounded-2xl border border-[#d8e3ee] bg-[#f9fbfd] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#8fb9df] hover:bg-[#f1f7fc] hover:shadow-[0_14px_30px_-24px_rgba(6,75,130,0.65)]"
-                  >
-                    <div>
-                      <p className="text-sm font-bold leading-6 text-[#114878] transition group-hover:text-[#0b66b2]">
-                        {item.category}
-                      </p>
-                      
-                    </div>
-                    <span className="inline-flex min-w-11 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold text-[#245b8f] ring-1 ring-[#d8e3ee] transition group-hover:bg-[#0b66b2] group-hover:text-white group-hover:ring-[#0b66b2]">
-                      {item.total}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <div className="px-6 py-6">
-                <p className="text-sm leading-6 text-[#5a6f87]">
-                  No related categories found for this search.
-                </p>
-              </div>
-            )}
-          </div>
+          <SideCategories query={query} category={category} topics={topics}/>
 
           {/* subject headings */}
           <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
@@ -165,7 +123,7 @@ export default async function Search({
                 {subjectHeadingCounts.map((item:SubjectHeadingCount, index:number) => (
                   <Link
                     key={index}
-                    href={`/search?s=${query}&category=${cat}&topics=${item.subject_heading_slug}`}
+                    href={`/search?s=${query}&category=${category}&topics=${item.subject_heading_slug}`}
                     className="group flex items-center justify-between gap-3 rounded-2xl border border-[#eadfce] bg-[#fffaf4] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#ddb277] hover:bg-[#fff4e7] hover:shadow-[0_14px_30px_-24px_rgba(129,74,14,0.45)]"
                   >
                     <div>
@@ -200,11 +158,8 @@ export default async function Search({
           </div>
 
         </div>
-
       </div>
-
-        
-        
+          
     </main>
   );
 }
