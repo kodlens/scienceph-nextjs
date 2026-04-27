@@ -12,10 +12,6 @@ type Props = {
 
 const Pagination = ({ itemsPerPage, onPageChange, total }: Props) => {
 
-  //const [page, setPage] = useState(0);
-  console.log(total);
-  
-
   return (
     <>
       <ReactPaginate
