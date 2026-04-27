@@ -4,7 +4,7 @@ export type PaginationLink = {
   active: boolean
 }
 
-export type laravelResponse<T> = {
+export type PaginateResponse<T> = {
   current_page: number
   data: T[]
   first_page_url: string
@@ -19,3 +19,13 @@ export type laravelResponse<T> = {
   to: number | null
   total: number
 }
+
+// type PaginateResponse<T> = {
+//   current_page: number;
+//   data: T;
+//   from: number | null;
+//   last_page: number;
+//   per_page: number;
+//   to: number | null;
+//   total: number;
+// }
