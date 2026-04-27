@@ -111,6 +111,7 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
           onPageChange={(selectedPage) => {
             setPage(selectedPage);
           }}
+          total={data?.total}
         />
       </div>
     </>

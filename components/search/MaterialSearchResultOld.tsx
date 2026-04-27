@@ -5,6 +5,7 @@ import { ApiResponseWithMeta, Material } from '@/types/material'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import Pagination from '../Pagination';
+import { PaginateResponse } from '@/types/laravelResponse';
 
 
 type Props = {
@@ -13,14 +14,14 @@ type Props = {
   topic: string;
 };
 
+const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
 
-const MaterialSearchResultsOld = ({ query, category, topic }: Props) => {
-
-  const [data, setData] = useState<Material[]>([]);
+  const [data, setData] = useState<PaginateResponse<Material>>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
 
-  const loadSearchLatest = async (): Promise<void> => {
+  const loadSearchOthers = async (): Promise<void> => {
     if (!process.env.NEXT_PUBLIC_API_URL) {
       console.error("Missing NEXT_PUBLIC_API_URL");
       return;
@@ -29,7 +30,8 @@ const MaterialSearchResultsOld = ({ query, category, topic }: Props) => {
       const params = new URLSearchParams({
         's': query,
         'category': category,
-        'topic': topic
+        'topic': topic,
+        page: page.toString(),
       }).toString();
       setLoading(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search-others?${params}`, {
@@ -43,7 +45,8 @@ const MaterialSearchResultsOld = ({ query, category, topic }: Props) => {
         return;
       }
       const data = await response.json();
-      setData(data?.data || []);
+      setData(data || {}); 
+      
 
       setLoading(false);
     } catch (error: unknown) {
@@ -55,15 +58,15 @@ const MaterialSearchResultsOld = ({ query, category, topic }: Props) => {
   };
 
   useEffect(() => {
-    loadSearchLatest();
-  }, [query, category, topic]);
+    loadSearchOthers();
+  }, [query, category, topic, page]);
 
-
+  
   return (
     <>
-      {Array.isArray(data) && data.length > 0 ? (
+      {Array.isArray(data?.data) && data.data.length > 0 ? (
 
-        data.map((item: Material) => (
+        data?.data.map((item: Material) => (
           <article
             key={item.id}
             className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
@@ -104,14 +107,15 @@ const MaterialSearchResultsOld = ({ query, category, topic }: Props) => {
       {/* pagination */}
       <div className="mt-6 flex justify-center">
         <Pagination 
-            itemsPerPage={10} 
-            onPageChange={(selectedPage) => {
-              // Handle page change
-            }}
+          itemsPerPage={data?.per_page || 0}
+          onPageChange={(selectedPage) => {
+            setPage(selectedPage);
+          }}
+          total={data?.total}
         />
       </div>
     </>
   )
 }
 
-export default MaterialSearchResultsOld
+export default MaterialSearchResultsOthers
