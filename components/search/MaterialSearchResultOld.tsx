@@ -61,11 +61,32 @@ const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
     loadSearchOthers();
   }, [query, category, topic, page]);
 
+
+  if(loading) {
+    return (
+      <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 animate-pulse">
+        {/* Title skeleton */}
+        <div className="h-6 w-40 mx-auto bg-gray-200 rounded"></div>
+
+        {/* Subtitle skeleton */}
+        <div className="mt-4 space-y-2">
+          <div className="h-4 w-3/4 mx-auto bg-gray-200 rounded"></div>
+          <div className="h-4 w-2/3 mx-auto bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    )
+  }
+
+
   return (
     <>
       {Array.isArray(data?.data) && data.data.length > 0 ? (
         <>
-
+          <div className="flex items-center my-4">
+            <div className="grow border-t border-gray-300"></div>
+            <span className="mx-4 text-gray-500 font-bold text-xs">RELATED ARTICLES</span>
+            <div className="grow border-t border-gray-300"></div>
+          </div>
           {data?.data.map((item: Material) => (
             <article
               key={item.id}
@@ -80,7 +101,7 @@ const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
                 <span>Published:</span>
                 <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
               </div>
-              <p className="mt-3 text-base leading-relaxed text-[#334c67]">
+              <p className="mt-3 text-base leading-relaxed text-[#334c67] font-sans">
                 {truncate(item.description_text, 320, "...")}
               </p>
               <div className="mt-4 border-t border-[#dae4ef] pt-3">
@@ -92,20 +113,19 @@ const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
                 </Link>
               </div>
             </article>
-
-            
           ))}
 
           {/* pagination */}
           { data?.total && data.total > 0 && (
-            <div className="mt-6 flex justify-center">
-                <Pagination 
+            <div className="mt-6 flex justify-end">
+              <Pagination
+                currentPage={page} 
                 itemsPerPage={data?.per_page || 0}
                 onPageChange={(selectedPage) => {
                     setPage(selectedPage);
                 }}
                 total={data?.total}
-                />
+              />
             </div>
           ) }
         </> 

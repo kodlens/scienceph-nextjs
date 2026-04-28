@@ -90,7 +90,7 @@ const SideCategorieTest = ({ query, category, topic }: Props) => {
             { data.map((item: CategoryCount) => (
               <Link
                 key={item.slug}
-                href={`/search?s=${query}&category=${item.slug}&topic=${topic}`}
+                href={`/search?s=${query}&category=${item.slug}&topic=`}
                 className="group flex items-center justify-between gap-3 rounded-2xl border border-[#d8e3ee] bg-[#f9fbfd] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#8fb9df] hover:bg-[#f1f7fc] hover:shadow-[0_14px_30px_-24px_rgba(6,75,130,0.65)]"
               >
                 <div>

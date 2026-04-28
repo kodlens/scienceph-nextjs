@@ -3,6 +3,7 @@ import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResul
 import SideCategories from "@/components/search-sidebar/SideCategories";
 import SideTopics from "@/components/search-sidebar/SideTopics";
 import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOld";
+import SearchFilters from "@/components/search-filters/SeasrchFilters";
 
 
 type Props= {
@@ -31,64 +32,56 @@ export default async function Search({
   //const subjectHeadingCounts = Array.isArray(results.meta.subject_heading_counts) ? results.meta.subject_heading_counts : [];
   //const searchResults = Array.isArray(results.data.data) ? results.data.data : [];
 
+
   return (
 
-    <main className="min-h-screen bg-[#edf2f6] flex flex-col items-center py-6">
+    <main className="min-h-screen bg-[#edf2f6] py-6">
 
-      {/* Search Container */}
-      <div className="w-full lg:max-w-6xl">
-        {/* search  */}
-        <InputSearch query={query}  />
-        {/* search */}
-      </div>
-      {/* Search Container */}
+      <div className="flex flex-col gap-4 items-center ">
 
-      {/* filter */}
-      <div className="flex my-4">
+        {/* Search Container */}
+        <div className="w-full px-4 lg:max-w-6xl">
+          {/* search  */}
+          <InputSearch query={query}  />
+        </div>
+        {/* Search Container */}
 
-        <div className="font-bold">Filter: </div>
-
-        { query && (
-          <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#dce5ef] px-3 py-1 text-xs font-extrabold text-[#114878]">
-            {/* format query from slug */}
-            {query.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+        {/* filter */}
+        <div className="flex items-center px-4">
+          <div className="font-bold font-sans text-sm text-[#334c67]">
+            FILTERS: 
           </div>
-        )}
-
-        { category && (
-          <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#cce5ff] px-3 py-1 text-xs font-extrabold text-[#0b66b2]">
-            {/* format category from slug */}
-            {category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
-          </div>
-        )}
-        { topic && (
-          <div className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#f6e3c8] px-3 py-1 text-xs font-extrabold text-[#9a5a11]">
-            {/* format topic from slug */}
-            {topic.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
-          </div>
-        )}
-
-      </div>
-
-      <div className="flex gap-4 w-full lg:max-w-6xl">
-        {/* sidebar (categories, topics */}
-        <div className=" flex flex-col gap-4 w-87.5">
-          {/* categories */}
-          <SideCategories query={query} category={category} topic={topic}/>
-
-          {/* subject headings */}
-          <SideTopics query={query} category={category} topic={topic} />
-            
+          <SearchFilters query={query} category={category} topic={topic} />
         </div>
 
-        {/* left bar (result) */}
-        <div className="flex-1">
-          <MaterialSearchResultsLatest query={query} category={category} topic={topic} />
+        <div className="flex gap-4 w-full lg:max-w-6xl px-4">
+          
+          {/* sidebar (categories, topics */}
+          <div className="md:flex md:flex-col md:gap-4 hidden w-87.5">
+            {/* categories */}
+            <SideCategories query={query} category={category} topic={topic}/>
 
-          <div className="mt-4">
-            <MaterialSearchResultsOthers query={query} category={category} topic={topic} />
+            {/* subject headings */}
+            <SideTopics query={query} category={category} topic={topic} />
           </div>
 
+          {/* left bar (result) */}
+          <div className="flex-1">
+            <MaterialSearchResultsLatest query={query} category={category} topic={topic} />
+
+            <div className="mt-4">
+              <MaterialSearchResultsOthers query={query} category={category} topic={topic} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div className="md:hidden fixed bottom-20 -left-7.5 hover:-left-5 transition-all duration-300">
+        <div className="flex justify-end font-bold bg-blue-600 p-4 rounded-full text-white text-xs w-42.5
+          hover:bg-blue-700 transition duration-200 cursor-pointer">
+          Categories & Topics
         </div>
       </div>
 

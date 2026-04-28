@@ -27,7 +27,7 @@ const InputSearch = ({ query }: Props) => {
       <input
         type="text"
         placeholder="Try: science and technology, climate adaptation, engineering"
-        className="w-full border-none bg-transparent text-base text-[#1f2937] 
+        className="w-full border-none bg-transparent text-base text-[#1f2937] font-sans
           outline-none placeholder:text-[#95a3b3] placeholder:italic"
         value={search}
         onChange={(e) => setSearch(e.target.value)}

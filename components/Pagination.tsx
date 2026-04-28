@@ -8,9 +8,10 @@ type Props = {
   itemsPerPage: number;
   onPageChange: (selectedPage: number) => void;
   total: number| undefined;
+  currentPage: number;
 };
 
-const Pagination = ({ itemsPerPage, onPageChange, total }: Props) => {
+const Pagination = ({ itemsPerPage, onPageChange, total, currentPage }: Props) => {
 
   return (
     <>
@@ -26,12 +27,11 @@ const Pagination = ({ itemsPerPage, onPageChange, total }: Props) => {
         pageLinkClassName="px-3 py-2 rounded-md hover:bg-red-900  hover:text-white transition hover:cursor-pointer" 
         activeClassName='text-white py-2 rounded-md bg-[#c92a2a] border-none font-bold'
         pageClassName='font-bold text-xs'
-
         pageRangeDisplayed={5}
         pageCount={total ? Math.ceil(total / itemsPerPage) : 0}
         previousLabel={<ChevronLeft size={15} />}
         previousLinkClassName='font-bold flex rounded-md transition hover:bg-red-900 hover:text-white py-2 px-2 hover:cursor-pointer'
-       
+        forcePage={currentPage - 1}
         renderOnZeroPageCount={null}
       />
     </>

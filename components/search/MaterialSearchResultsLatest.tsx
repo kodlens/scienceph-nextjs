@@ -57,43 +57,71 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
     }
   };
 
+
   useEffect(() => {
     loadSearchLatest();
   }, [query, category, topic, page]);
+
+
+  if(loading) {
+    return (
+      <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 animate-pulse">
+        {/* Title skeleton */}
+        <div className="h-6 w-40 mx-auto bg-gray-200 rounded"></div>
+
+        {/* Subtitle skeleton */}
+        <div className="mt-4 space-y-2">
+          <div className="h-4 w-3/4 mx-auto bg-gray-200 rounded"></div>
+          <div className="h-4 w-2/3 mx-auto bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    )
+  }
+
+
 
   if(Array.isArray(data?.data) && data.data.length > 0) {
     return (
       <>
         {Array.isArray(data?.data) && data.data.length > 0 ? (
+          <>
+            <div className="flex items-center my-4">
+              <div className="grow border-t border-gray-300"></div>
+              <span className="mx-4 text-gray-500 font-bold text-xs">NEWER ARTICLES</span>
+              <div className="grow border-t border-gray-300"></div>
+            </div>
 
-          data?.data.map((item: Material) => (
-            <article
-              key={item.id}
-              className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
-            >
-              <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                <Link href={`/articles/${item.slug}`} className="hover:underline">
-                  {item.title}
-                </Link>
-              </h3>
-              <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
-                <span>Published:</span>
-                <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
-              </div>
-              <p className="mt-3 text-base leading-relaxed text-[#334c67]">
-                {truncate(item.description_text, 320, "...")}
-              </p>
-              <div className="mt-4 border-t border-[#dae4ef] pt-3">
-                <Link
-                  href={`/articles/${item.slug}`}
-                  className="text-sm text-[#0571c6] hover:underline"
+            {data?.data.map((item: Material) => (
+
+                <article
+                  key={item.id}
+                  className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
                 >
-                  /{item.slug}
-                </Link>
-              </div>
-            </article>
-          ))
-
+                  <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
+                    <Link href={`/articles/${item.slug}`} className="hover:underline">
+                      {item.title}
+                    </Link>
+                  </h3>
+                  <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
+                    <span>Published:</span>
+                    <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
+                  </div>
+                  <p className="mt-3 text-base leading-relaxed text-[#334c67] font-sans">
+                    {truncate(item.description_text, 320, "...")}
+                  </p>
+                  <div className="mt-4 border-t border-[#dae4ef] pt-3">
+                    <Link
+                      href={`/articles/${item.slug}`}
+                      className="text-sm text-[#0571c6] hover:underline"
+                    >
+                      /{item.slug}
+                    </Link>
+                  </div>
+                </article>
+              
+            ))}
+          </>
+          
         ) : (
           <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
             <h3 className="text-xl font-bold text-[#1a3552]">No results found</h3>
@@ -102,11 +130,12 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
             </p>
           </div>
         )}
-
+        
 
         {/* pagination */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-end">
           <Pagination 
+            currentPage={page}
             itemsPerPage={data?.per_page || 0}
             onPageChange={(selectedPage) => {
               setPage(selectedPage);
