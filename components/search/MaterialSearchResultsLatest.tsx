@@ -1,11 +1,13 @@
 "use client"
 
 import { dateFormatter, truncate } from '@/lib/utils'
-import { ApiResponseWithMeta, Material } from '@/types/material'
+import { Material } from '@/types/material'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import Pagination from '../Pagination';
 import { PaginateResponse } from '@/types/laravelResponse';
+import { CircleQuestionMark } from 'lucide-react';
+import InfoChip from '../info-chip';
 
 
 type Props = {
@@ -62,7 +64,6 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
     loadSearchLatest();
   }, [query, category, topic, page]);
 
-
   if(loading) {
     return (
       <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 animate-pulse">
@@ -87,7 +88,10 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
           <>
             <div className="flex items-center my-4">
               <div className="grow border-t border-gray-300"></div>
-              <span className="mx-4 text-gray-500 font-bold text-xs">NEWER ARTICLES</span>
+              <div className="ml-4 text-gray-500 font-bold text-xs tracking-wide">
+                NEWER ARTICLES
+              </div>
+              <InfoChip title="About this section" message="Shows the newest published materials that match your active search filters." />
               <div className="grow border-t border-gray-300"></div>
             </div>
 
