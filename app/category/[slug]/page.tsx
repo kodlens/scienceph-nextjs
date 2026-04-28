@@ -104,8 +104,6 @@ export default async function CategoryPage({
 
   return (
     <main className="min-h-screen bg-[#edf2f6]">
-     
-
       <div className="mx-auto w-full max-w-6xl px-4 py-6">
         <section className="rounded-2xl border border-[#d2dbe5] bg-white p-4 shadow-sm">
           <h1 className="text-2xl font-extrabold text-[#133a63] md:text-3xl">
