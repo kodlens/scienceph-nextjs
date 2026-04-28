@@ -1,11 +1,12 @@
 import { fetchFromLaravel } from "@/lib/api";
 import { dateFormatter, truncate } from "@/lib/utils";
-import { laravelResponse } from "@/types/laravelResponse";
+import { PaginateResponse } from "@/types/laravelResponse";
 import { Material } from "@/types/material";
 import ReactPagination from "@/components/pagination/ReactPagination";
 import Link from "next/link";
 import SideCategories from "@/components/search-sidebar/SideCategories";
 import SideTopics from "@/components/search-sidebar/SideTopics";
+import SearchCategoriesLabel from "@/components/search-category/SearchCategoriesLabel";
 
 const LOCAL_PER_PAGE = 10;
 
@@ -25,7 +26,7 @@ async function getMaterialsByCategory(param: string, page: number, query: string
     search.set("q", query);
   }
 
-  const res = await fetchFromLaravel<laravelResponse<Material> | Material[]>(
+  const res = await fetchFromLaravel<PaginateResponse<Material> | Material[]>(
     `get-materials-by-category/${param}?${search.toString()}`,
     300
   );
@@ -33,7 +34,7 @@ async function getMaterialsByCategory(param: string, page: number, query: string
 }
 
 function normalizeMaterials(
-  response: laravelResponse<Material> | Material[],
+  response: PaginateResponse<Material> | Material[],
   page: number,
   query: string
 ): NormalizedMaterials {
@@ -134,7 +135,7 @@ export default async function CategoryPage({
         <section className="mt-6">
           <div className="flex gap-4">
             <div className="hidden w-87.5 md:flex md:flex-col md:gap-4">
-              <SideCategories query={rawQuery} category={slug} topic={topic} />
+              <SearchCategoriesLabel query={rawQuery} category={slug} topic={topic} />
               <SideTopics query={rawQuery} category={slug} topic={topic} />
             </div>
 
