@@ -4,6 +4,8 @@ import { laravelResponse } from "@/types/laravelResponse";
 import { Material } from "@/types/material";
 import ReactPagination from "@/components/pagination/ReactPagination";
 import Link from "next/link";
+import SideCategories from "@/components/search-sidebar/SideCategories";
+import SideTopics from "@/components/search-sidebar/SideTopics";
 
 const LOCAL_PER_PAGE = 10;
 
@@ -77,12 +79,18 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string | string[] }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
-  const slug = (await params).slug;
+  const routeParams = await params;
+  const slugParam = routeParams.slug;
+  const routeSlug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
+  const slug = decodeURIComponent(routeSlug || "").trim();
+
+
   const queryParams = await searchParams;
   const rawQuery = (queryParams.q || "").trim();
+  const topic = "";
   const rawPage = Number(queryParams.page || "1");
   const currentQueryPage = Number.isFinite(rawPage) && rawPage > 0 ? Math.floor(rawPage) : 1;
 
@@ -124,57 +132,66 @@ export default async function CategoryPage({
         </section>
 
         <section className="mt-6">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-xl font-bold text-[#12335b] md:text-2xl">Materials</h2>
-            <p className="text-sm text-[#5f738a]">
-              Showing {from ?? 0}-{to ?? 0} of {total}
-            </p>
-          </div>
-
-          {materials.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
-              <h3 className="text-xl font-bold text-[#1a3552]">No materials found</h3>
-              <p className="mt-2 text-base text-[#5a6f87]">
-                Try another keyword to refine your category search.
-              </p>
+          <div className="flex gap-4">
+            <div className="hidden w-87.5 md:flex md:flex-col md:gap-4">
+              <SideCategories query={rawQuery} category={slug} topic={topic} />
+              <SideTopics query={rawQuery} category={slug} topic={topic} />
             </div>
-          ) : (
-            <div className="space-y-4">
-              {materials.map((item) => (
-                <article
-                  key={item.id}
-                  className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6"
-                >
-                  <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                    <Link href={`/articles/${item.slug}`} className="hover:underline">
-                      {item.title}
-                    </Link>
-                  </h3>
-                  <p className="mt-2 text-sm text-[#647c96]">
-                    Published: {dateFormatter(item.publish_date, "MMMM D, YYYY")}
+
+            <div className="flex-1">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <h2 className="text-xl font-bold text-[#12335b] md:text-2xl">Materials</h2>
+                <p className="text-sm text-[#5f738a]">
+                  Showing {from ?? 0}-{to ?? 0} of {total}
+                </p>
+              </div>
+
+              {materials.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
+                  <h3 className="text-xl font-bold text-[#1a3552]">No materials found</h3>
+                  <p className="mt-2 text-base text-[#5a6f87]">
+                    Try another keyword to refine your category search.
                   </p>
-                  <p className="mt-3 text-base leading-relaxed text-[#334c67]">
-                    {truncate(item.description_text, 280, "...")}
-                  </p>
-                  <div className="mt-4 border-t border-[#dae4ef] pt-3">
-                    <Link
-                      href={`/articles/${item.slug}`}
-                      className="text-sm text-[#0571c6] hover:underline"
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {materials.map((item) => (
+                    <article
+                      key={item.id}
+                      className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6"
                     >
-                      /{item.slug}
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
+                      <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
+                        <Link href={`/articles/${item.slug}`} className="hover:underline">
+                          {item.title}
+                        </Link>
+                      </h3>
+                      <p className="mt-2 text-sm text-[#647c96]">
+                        Published: {dateFormatter(item.publish_date, "MMMM D, YYYY")}
+                      </p>
+                      <p className="mt-3 text-base leading-relaxed text-[#334c67]">
+                        {truncate(item.description_text, 280, "...")}
+                      </p>
+                      <div className="mt-4 border-t border-[#dae4ef] pt-3">
+                        <Link
+                          href={`/articles/${item.slug}`}
+                          className="text-sm text-[#0571c6] hover:underline"
+                        >
+                          /{item.slug}
+                        </Link>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
 
-          <ReactPagination
-            currentPage={currentPage}
-            lastPage={lastPage}
-            queryKey="q"
-            queryValue={rawQuery}
-          />
+              <ReactPagination
+                currentPage={currentPage}
+                lastPage={lastPage}
+                queryKey="q"
+                queryValue={rawQuery}
+              />
+            </div>
+          </div>
         </section>
       </div>
     </main>

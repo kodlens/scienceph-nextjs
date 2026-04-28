@@ -32,7 +32,7 @@ const KmCategories = async () => {
           subtitle="Browse curated knowledge areas and jump straight to topics"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {categories.map((category, index) => (
+          { categories.map((category, index) => (
             <RevealOnScroll
               key={category.category}
               as="article"
@@ -40,7 +40,7 @@ const KmCategories = async () => {
               className="rounded-2xl border border-[#d4e0ec] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#bfd4e8] hover:shadow-md"
             >
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-xl font-bold text-[#122840]">{category.category}</h3>
+                <Link href={`/category/${category.slug}`} className="text-xl font-bold text-[#122840]">{category.category}</Link>
                 <span className="rounded-full border border-[#f2c3c3] bg-[#fff2f2] px-2 py-0.5 text-[11px] font-semibold uppercase text-[#b32626]">
                   {/* {category.topics} this it the count of every subject heading*/}
                   {category.subject_headings.length} topics
