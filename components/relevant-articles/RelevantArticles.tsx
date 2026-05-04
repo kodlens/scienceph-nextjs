@@ -51,10 +51,6 @@ const RelevantArticles = ({ slug }: Props) => {
     loadSearchLatest();
   }, [slug]);
   
-  useEffect(() => {
-    console.log(data);
-    
-  }, [data]);
 
   if (loading) {
     return <div className='text-sm'>Loading...</div>;
