@@ -1,6 +1,14 @@
 // lib/api.ts
 export async function fetchFromLaravel<T>(endpoint: string, revalidate: number = 60): Promise<T> {
-  const url = `${process.env.LARAVEL_API_URL}/${endpoint}`;
+  const apiBaseUrl = process.env.LARAVEL_API_URL;
+
+  if (!apiBaseUrl) {
+    throw new Error("Missing LARAVEL_API_URL environment variable.");
+  }
+
+  const normalizedBaseUrl = apiBaseUrl.replace(/\/+$/, "");
+  const normalizedEndpoint = endpoint.replace(/^\/+/, "");
+  const url = `${normalizedBaseUrl}/${normalizedEndpoint}`;
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json", // ensure JSON request

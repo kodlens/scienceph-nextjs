@@ -2,7 +2,7 @@ import { fetchFromLaravel } from "@/lib/api";
 import type { Material } from "@/types/material";
 import { dateFormatter, fixImageSources } from "@/lib/utils";
 import RelevantArticles from "./relevant-articles/RelevantArticles";
-import SideCategoryMenu from "./material/SideCategoryMenu,";
+import SideCategoryMenu from "./material/SideCategoryMenu";
 import SideTopicMenu from "./material/SideTopicMenu";
 
 async function Material(slug: string) {
