@@ -15,7 +15,7 @@ type Props = {
   topic: string;
 };
 
-const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
+const CategoryMaterialSearchResultLatest = ({ query, category, topic }: Props) => {
   
   const [data, setData] = useState<PaginateResponse<Material>>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,7 +35,7 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
         page: page.toString(),
       }).toString();
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search-latest?${params}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category-search-latest?${params}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -157,4 +157,4 @@ const MaterialSearchResultsLatest = ({ query, category, topic }: Props) => {
   )
 }
 
-export default MaterialSearchResultsLatest
+export default CategoryMaterialSearchResultLatest

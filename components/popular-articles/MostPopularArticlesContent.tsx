@@ -37,7 +37,7 @@ const MostPopularArticlesContent = ( { materials } : {materials : Material[] }) 
               <p className="mt-2 text-sm leading-6 text-[#51647a]">{truncate(material.description_text, 200)}</p>
               <div className="mt-3 flex items-center justify-between border-t border-[#e4ecf4] pt-3">
                 <p className="text-xs text-[#718297]">{dateFormatter(material.publish_date)}</p>
-                <Link href="#" className="text-xs font-semibold text-[#b32626] hover:underline">
+                <Link href={`/articles/${material.slug}`} className="text-xs font-semibold text-[#b32626] hover:underline">
                   Read more
                 </Link>
               </div>

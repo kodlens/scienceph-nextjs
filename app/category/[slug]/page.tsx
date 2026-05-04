@@ -4,9 +4,16 @@ import { PaginateResponse } from "@/types/laravelResponse";
 import { Material } from "@/types/material";
 import ReactPagination from "@/components/pagination/ReactPagination";
 import Link from "next/link";
-import SideCategories from "@/components/search-sidebar/SideCategories";
-import SideTopics from "@/components/search-sidebar/SideTopics";
+import SideCategories from "@/components/sidebar-menu/CategoryMenu";
+import SideTopics from "@/components/sidebar-menu/TopicMenu";
 import SearchCategoriesLabel from "@/components/search-category/SearchCategoriesLabel";
+import CategorySideTopic from "@/components/sidebar-menu/CategoryTopic";
+import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResultsLatest";
+import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOld";
+import SearchFilters from "@/components/search-filters/SeasrchFilters";
+import CategorySearchFilter from "@/components/search-filters/CategorySearchFilter";
+import CategoryMaterialSearchResultLatest from "@/components/search/CategoryMaterialSearchResultLatest";
+import CategoryMaterialSearchResultRelated from "@/components/search/CategoryMaterialSearchResultRelated";
 
 const LOCAL_PER_PAGE = 10;
 
@@ -19,7 +26,7 @@ type NormalizedMaterials = {
   to: number | null;
 };
 
-async function getMaterialsByCategory(param: string, page: number, query: string) {
+async function searchMaterialsByCategory(param: string, page: number, query: string) {
   const search = new URLSearchParams();
   search.set("page", String(page));
   if (query) {
@@ -27,7 +34,7 @@ async function getMaterialsByCategory(param: string, page: number, query: string
   }
 
   const res = await fetchFromLaravel<PaginateResponse<Material> | Material[]>(
-    `get-materials-by-category/${param}?${search.toString()}`,
+    `search-materials-by-category/${param}?topic=${search.toString()}`,
     300
   );
   return res;
@@ -81,33 +88,22 @@ export default async function CategoryPage({
   searchParams,
 }: {
   params: Promise<{ slug: string | string[] }>;
-  searchParams: Promise<{ q?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; topic?: string }>;
 }) {
   const routeParams = await params;
   const slugParam = routeParams.slug;
   const routeSlug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
   const slug = decodeURIComponent(routeSlug || "").trim();
-
-
   const queryParams = await searchParams;
   const rawQuery = (queryParams.q || "").trim();
-  const topic = "";
-  const rawPage = Number(queryParams.page || "1");
-  const currentQueryPage = Number.isFinite(rawPage) && rawPage > 0 ? Math.floor(rawPage) : 1;
-
-  const response = await getMaterialsByCategory(slug, currentQueryPage, rawQuery);
-  const { data: materials, total, currentPage, lastPage, from, to } = normalizeMaterials(
-    response,
-    currentQueryPage,
-    rawQuery
-  );
+  const topic = (queryParams.topic || "").trim();
 
   return (
     <main className="min-h-screen bg-[#edf2f6]">
       <div className="mx-auto w-full max-w-6xl px-4 py-6">
         <section className="rounded-2xl border border-[#d2dbe5] bg-white p-4 shadow-sm">
           <h1 className="text-2xl font-extrabold text-[#133a63] md:text-3xl">
-            {slug.replaceAll("-", " ")}
+            {slug.replaceAll("-", " ").toLocaleLowerCase().replace(/\b\w/g, (char) => char.toUpperCase())}
           </h1>
           <p className="mt-1 text-sm text-[#5e748b]">
             Browse published materials in this category.
@@ -133,62 +129,33 @@ export default async function CategoryPage({
         <section className="mt-6">
           <div className="flex gap-4">
             <div className="hidden w-87.5 md:flex md:flex-col md:gap-4">
-              <SearchCategoriesLabel query={rawQuery} category={slug} topic={topic} />
-              <SideTopics query={rawQuery} category={slug} topic={topic} />
+              {/* <SearchCategoriesLabel query={rawQuery} category={slug} topic={topic} /> */}
+              <CategorySideTopic query={rawQuery} category={slug} />
             </div>
 
             <div className="flex-1">
-              <div className="mb-4 flex items-center justify-between gap-3">
+              {/* <div className="mb-4 flex items-center justify-between gap-3">
                 <h2 className="text-xl font-bold text-[#12335b] md:text-2xl">Materials</h2>
                 <p className="text-sm text-[#5f738a]">
                   Showing {from ?? 0}-{to ?? 0} of {total}
                 </p>
+              </div> */}
+
+              <div className="flex items-center px-4 pb-4">
+                <div className="font-bold font-sans text-sm text-[#334c67]">
+                  FILTERS: 
+                </div>
+                <CategorySearchFilter query={rawQuery} category={slug} topic={topic} />
               </div>
 
-              {materials.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
-                  <h3 className="text-xl font-bold text-[#1a3552]">No materials found</h3>
-                  <p className="mt-2 text-base text-[#5a6f87]">
-                    Try another keyword to refine your category search.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {materials.map((item) => (
-                    <article
-                      key={item.id}
-                      className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6"
-                    >
-                      <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                        <Link href={`/articles/${item.slug}`} className="hover:underline">
-                          {item.title}
-                        </Link>
-                      </h3>
-                      <p className="mt-2 text-sm text-[#647c96]">
-                        Published: {dateFormatter(item.publish_date, "MMMM D, YYYY")}
-                      </p>
-                      <p className="mt-3 text-base leading-relaxed text-[#334c67]">
-                        {truncate(item.description_text, 280, "...")}
-                      </p>
-                      <div className="mt-4 border-t border-[#dae4ef] pt-3">
-                        <Link
-                          href={`/articles/${item.slug}`}
-                          className="text-sm text-[#0571c6] hover:underline"
-                        >
-                          /{item.slug}
-                        </Link>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              )}
+              <div className="flex-1">
+                <CategoryMaterialSearchResultLatest query={rawQuery} category={slug} topic={topic} />
 
-              <ReactPagination
-                currentPage={currentPage}
-                lastPage={lastPage}
-                queryKey="q"
-                queryValue={rawQuery}
-              />
+                <div className="mt-4">
+                  <CategoryMaterialSearchResultRelated query={rawQuery} category={slug} topic={topic} />
+                </div>
+              </div>
+              
             </div>
           </div>
         </section>

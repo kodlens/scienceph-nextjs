@@ -3,7 +3,7 @@
 import { CategoryCount } from "@/types/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import SideCategorieTest from "../search-sidebar/SideCategories";
+import SideCategorieTest from "../sidebar-menu/CategoryMenu";
 
 type Props = {
   query: string;

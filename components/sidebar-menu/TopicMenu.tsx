@@ -12,7 +12,7 @@ type TopicCount = {
 type Props = {
   query: string;
   category: string;
-  topic: string;
+  topic?: string;
 };
 
 const SideTopics = ({ query, category, topic }: Props) => {
@@ -38,10 +38,10 @@ const SideTopics = ({ query, category, topic }: Props) => {
       const params = new URLSearchParams({
         's': query,
         'category': category,
-        'topic': topic
+        'topic': topic ? topic : '',
       }).toString();
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/topic-labels?${params}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/side-menu/topic-labels?${params}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

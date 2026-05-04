@@ -1,7 +1,7 @@
 import InputSearch from "@/components/InputSearch";
 import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResultsLatest";
-import SideCategories from "@/components/search-sidebar/SideCategories";
-import SideTopics from "@/components/search-sidebar/SideTopics";
+import SideCategories from "@/components/sidebar-menu/CategoryMenu";
+import SideTopics from "@/components/sidebar-menu/TopicMenu";
 import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOld";
 import SearchFilters from "@/components/search-filters/SeasrchFilters";
 
