@@ -46,7 +46,7 @@ export type Material = {
   publish_date: string;
   is_press_release: boolean;
   category_id?: number;
-  category?: Category | string;
+  category?: Category;
   created_at: string ;
   updated_at: string ;
 };
