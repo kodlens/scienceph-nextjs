@@ -2,6 +2,7 @@ import { fetchFromLaravel } from "@/lib/api";
 import type { Material } from "@/types/material";
 import Link from "next/link";
 import { dateFormatter, truncate } from "@/lib/utils";
+import RelevantArticles from "./relevant-articles/RelevantArticles";
 
 async function Material(slug: string) {
   return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
@@ -44,7 +45,7 @@ const ArticleContent = async ({ slug }: { slug: string }) => {
         <article className="rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
           <div className="p-5 md:p-7">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#b32626]">
-              {article.category?.category || "General"}
+              {typeof article.category === "string" ? article.category : article.category?.category || "General"}
             </p>
             <h1 className="mt-2 text-2xl font-black leading-tight text-[#122840] md:text-4xl">
               {article.title}
@@ -76,23 +77,7 @@ const ArticleContent = async ({ slug }: { slug: string }) => {
             </span>
           </div>
 
-          <div className="space-y-3">
-            {dummyRelevantArticles.map((item) => (
-              <Link
-                href="#"
-                key={item.title}
-                className="block rounded-lg border border-[#dbe6f1] bg-[#fbfdff] p-3 transition hover:border-[#c7d9ea] hover:bg-[#f5f9fd]"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#b32626]">
-                  {item.category}
-                </p>
-                <h3 className="mt-1 text-sm font-bold leading-5 text-[#0f4f89]">
-                  {truncate(item.title, 90, "...")}
-                </h3>
-                <p className="mt-1 text-xs text-[#6a7f97]">{item.date}</p>
-              </Link>
-            ))}
-          </div>
+          <RelevantArticles slug={article.slug} />
         </aside>
       </div>
     </main>

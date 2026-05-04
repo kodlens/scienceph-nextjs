@@ -89,7 +89,7 @@ const CategoryMaterialSearchResultRelated = ({ query, category, topic }: Props) 
           </div>
           {data?.data.map((item: Material) => (
             <article
-              key={item.id}
+              key={`related-${item.id}`}
               className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
             >
               <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">

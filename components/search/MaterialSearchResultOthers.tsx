@@ -14,7 +14,7 @@ type Props = {
   topic: string;
 };
 
-const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
+const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
 
   const [data, setData] = useState<PaginateResponse<Material>>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -87,9 +87,9 @@ const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
             <span className="mx-4 text-gray-500 font-bold text-xs">RELATED ARTICLES</span>
             <div className="grow border-t border-gray-300"></div>
           </div>
-          {data?.data.map((item: Material) => (
+          {data?.data.map((item: Material, index:number) => (
             <article
-              key={item.id}
+              key={`related-${item.id}-${index}`}
               className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
             >
               <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
@@ -139,4 +139,4 @@ const MaterialSearchResultsOthers = ({ query, category, topic }: Props) => {
   )
 }
 
-export default MaterialSearchResultsOthers
+export default MaterialSearchResultOthers
