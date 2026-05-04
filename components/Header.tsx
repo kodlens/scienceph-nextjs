@@ -17,9 +17,9 @@ const Header = () => {
           </div>
         </div>
 
-        <p className="hidden text-sm italic text-[#6e8097] lg:block">
+        {/* <p className="hidden text-sm italic text-[#6e8097] lg:block">
           &quot;Exploring the Boundaries, Unlocking the Future: Science PH&quot;
-        </p>
+        </p> */}
 
         <div className="hidden items-center gap-2 md:flex">
           <span className="rounded-full border border-[#c5d7ea] bg-[#f5f9fd] px-3 py-1 text-xs font-semibold text-[#1e4f81]">
