@@ -9,7 +9,14 @@ async function Material(slug: string) {
   return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
 }
 
-const ArticleContent = async ({ slug }: { slug: string }) => {
+type Props = {
+  slug: string;
+  query?: string;
+  category?: string;
+  topic?: string;
+};
+const ArticleContent = async ({ slug, query, category }: Props) => {
+
 
   const article = await Material(slug);
   const articleCategory =
@@ -22,8 +29,8 @@ const ArticleContent = async ({ slug }: { slug: string }) => {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)_300px] xl:grid-cols-[280px_minmax(0,1fr)_320px] xl:gap-8">
         <aside className="flex flex-col gap-6 lg:sticky lg:top-28 lg:h-fit">
           <SideCategoryMenu
-            query={article.title}
-            category={articleCategory}
+            query={query ? query : ''}
+            category={category ? category : ''}
             topic=""
           />
 

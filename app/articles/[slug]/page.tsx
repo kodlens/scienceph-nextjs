@@ -1,12 +1,26 @@
 import ArticleContent from "@/components/ArticleContent";
 
-export default async function ArticlePage({ params } : { params: Promise<{ slug: string }> }) {
+type Params = {
+  slug: string;
+};
 
+type SearchParams = {
+  s?: string;
+  category?: string;
+  topic?: string;
+};
+
+export default async function ArticlePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<Params>;
+  searchParams: Promise<SearchParams>;
+}) {
   const { slug } = await params;
+  const queryParams = await searchParams;
 
-  //console.log('slug',slug);
-  
-  return (
-    <ArticleContent slug={slug} />
-  );
+  const query = (queryParams.s || "").trim();
+
+  return <ArticleContent slug={slug} query={query} />;
 }

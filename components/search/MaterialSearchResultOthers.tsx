@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import Pagination from '../Pagination';
 import { PaginateResponse } from '@/types/laravelResponse';
+import InfoChip from '../info-chip';
 
 
 type Props = {
@@ -85,6 +86,8 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
           <div className="flex items-center my-4">
             <div className="grow border-t border-gray-300"></div>
             <span className="mx-4 text-gray-500 font-bold text-xs">RELATED ARTICLES</span>
+              <InfoChip title="About this section" message="Show articles from the past 5 years" />
+      
             <div className="grow border-t border-gray-300"></div>
           </div>
           {data?.data.map((item: Material, index:number) => (
@@ -93,7 +96,7 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
               className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
             >
               <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                <Link href={`/articles/${item.slug}`} className="hover:underline">
+                <Link href={`/articles/${item.slug}?s=${query}`} className="hover:underline">
                   {item.title}
                 </Link>
               </h3>
