@@ -1,6 +1,6 @@
 import { fetchFromLaravel } from "@/lib/api";
 import type { Material } from "@/types/material";
-import { dateFormatter } from "@/lib/utils";
+import { dateFormatter, fixImageSources } from "@/lib/utils";
 import RelevantArticles from "./relevant-articles/RelevantArticles";
 import SideCategoryMenu from "./material/SideCategoryMenu,";
 import SideTopicMenu from "./material/SideTopicMenu";
@@ -10,6 +10,7 @@ async function Material(slug: string) {
 }
 
 const ArticleContent = async ({ slug }: { slug: string }) => {
+
   const article = await Material(slug);
   const articleCategory =
     typeof article.category === "string"
@@ -51,7 +52,7 @@ const ArticleContent = async ({ slug }: { slug: string }) => {
               {article.description ? (
                 <div
                   className="prose prose-slate ck ck-content max-w-none"
-                  dangerouslySetInnerHTML={{ __html: article.description }}
+                  dangerouslySetInnerHTML={{ __html: fixImageSources(article.description) }}
                 />
               ) : (
                 <p className="text-base leading-8 text-[#4f6378]">{article.description_text}</p>

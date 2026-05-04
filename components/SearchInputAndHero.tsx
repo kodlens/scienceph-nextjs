@@ -28,8 +28,9 @@ const SearchInputAndHero = () => {
         <div className="flex flex-wrap items-center justify-center gap-2">
           {[
             { label: "All", active: true },
-            { label: "News & Blog", active: false },
+            { label: "Articles", active: false },
             { label: "Videos", active: false },
+            { label: "People", active: false },
           ].map((tab) => (
             <button
               key={tab.label}
