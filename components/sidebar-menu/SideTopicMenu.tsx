@@ -15,7 +15,7 @@ type Props = {
   topic?: string;
 };
 
-const SideTopics = ({ query, category, topic }: Props) => {
+const SideTopicMenu = ({ query, category, topic }: Props) => {
   const [data, setData] = useState<TopicCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -126,4 +126,4 @@ const SideTopics = ({ query, category, topic }: Props) => {
   )
 }
 
-export default SideTopics
+export default SideTopicMenu

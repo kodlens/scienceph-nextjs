@@ -10,7 +10,7 @@ type Props = {
   topic: string;
 }
 
-const SideCategorieTest = ({ query, category, topic }: Props) => {
+const SideCategoryMenu = ({ query, category, topic }: Props) => {
   const [data, setData] = useState<CategoryCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +27,7 @@ const SideCategorieTest = ({ query, category, topic }: Props) => {
         'topic': topic
       }).toString();
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/side-menu/category-labels?${params}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/material-side-menu/category-labels?${params}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -113,4 +113,4 @@ const SideCategorieTest = ({ query, category, topic }: Props) => {
   )
 }
 
-export default SideCategorieTest
+export default SideCategoryMenu

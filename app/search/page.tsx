@@ -1,9 +1,11 @@
 import InputSearch from "@/components/InputSearch";
 import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResultLatest";
-import SideCategories from "@/components/sidebar-menu/CategoryMenu";
-import SideTopics from "@/components/sidebar-menu/TopicMenu";
+import SideTopics from "@/components/sidebar-menu/SideTopicMenu";
 import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOthers";
 import SearchFilters from "@/components/search-filters/SeasrchFilters";
+import CategoryMenu from "@/components/sidebar-menu/SideCategoryMenu";
+import SideCategoryMenu from "@/components/sidebar-menu/SideCategoryMenu";
+import SideTopicMenu from "@/components/sidebar-menu/SideTopicMenu";
 
 
 type Props= {
@@ -59,10 +61,10 @@ export default async function Search({
           {/* sidebar (categories, topics */}
           <div className="md:flex md:flex-col md:gap-4 hidden w-87.5">
             {/* categories */}
-            <SideCategories query={query} category={category} topic={topic}/>
+            <SideCategoryMenu query={query} category={category} topic={topic}/>
 
             {/* subject headings */}
-            <SideTopics query={query} category={category} topic={topic} />
+            <SideTopicMenu query={query} category={category} topic={topic} />
           </div>
 
           {/* left bar (result) */}

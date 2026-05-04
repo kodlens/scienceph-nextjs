@@ -1,8 +1,9 @@
 import { fetchFromLaravel } from "@/lib/api";
 import type { Material } from "@/types/material";
-import Link from "next/link";
-import { dateFormatter, truncate } from "@/lib/utils";
+import { dateFormatter } from "@/lib/utils";
 import RelevantArticles from "./relevant-articles/RelevantArticles";
+import SideCategoryMenu from "./material/SideCategoryMenu,";
+import SideTopicMenu from "./material/SideTopicMenu";
 
 async function Material(slug: string) {
   return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
@@ -10,14 +11,32 @@ async function Material(slug: string) {
 
 const ArticleContent = async ({ slug }: { slug: string }) => {
   const article = await Material(slug);
+  const articleCategory =
+    typeof article.category === "string"
+      ? article.category
+      : article.category?.category || "General";
 
   return (
-    <main className="mx-auto w-full max-w-295 px-4 py-8 md:py-10">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(300px,1fr)]">
-        <article className="rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
+    <main className="mx-auto w-full max-w-420 px-4 py-8 md:py-10">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)_300px] xl:grid-cols-[280px_minmax(0,1fr)_320px] xl:gap-8">
+        <aside className="flex flex-col gap-6 lg:sticky lg:top-28 lg:h-fit">
+          <SideCategoryMenu
+            query={article.title}
+            category={articleCategory}
+            topic=""
+          />
+
+          <SideTopicMenu
+            query={article.title}
+            category={articleCategory}
+            topic=""
+          />
+        </aside>
+
+        <article className="min-w-0 rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
           <div className="p-5 md:p-7">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#b32626]">
-              {typeof article.category === "string" ? article.category : article.category?.category || "General"}
+              {articleCategory}
             </p>
             <h1 className="mt-2 text-2xl font-black leading-tight text-[#122840] md:text-4xl">
               {article.title}

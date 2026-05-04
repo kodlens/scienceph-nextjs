@@ -3,7 +3,6 @@
 import { CategoryCount } from "@/types/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import SideCategorieTest from "../sidebar-menu/SideCategoryMenu";
 
 type Props = {
   query: string;
@@ -11,7 +10,7 @@ type Props = {
   topic: string;
 }
 
-const SearchCategoriesLabel = ({ query, category, topic }: Props) => {
+const SideCategoryMenu = ({ query, category, topic }: Props) => {
   const [data, setData] = useState<CategoryCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +27,7 @@ const SearchCategoriesLabel = ({ query, category, topic }: Props) => {
         'topic': topic
       }).toString();
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/category-labels?${params}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/side-menu/category-labels?${params}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -114,4 +113,4 @@ const SearchCategoriesLabel = ({ query, category, topic }: Props) => {
   )
 }
 
-export default SearchCategoriesLabel
+export default SideCategoryMenu
