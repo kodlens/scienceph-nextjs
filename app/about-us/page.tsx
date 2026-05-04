@@ -32,7 +32,7 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      <section className="mt-6 rounded-2xl border border-[#cfdeeb] bg-white p-6 shadow-sm md:p-8">
+      {/* <section className="mt-6 rounded-2xl border border-[#cfdeeb] bg-white p-6 shadow-sm md:p-8">
         <SectionTitle
           title="About the Logo"
           subtitle="The symbols and colors represent the identity and mission of science.ph."
@@ -53,7 +53,7 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }

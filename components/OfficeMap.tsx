@@ -1,6 +1,6 @@
 const OfficeMap = () => {
   return (
-    <section className="mx-auto w-full max-w-[1180px] px-4 pb-12">
+    <section className="mx-auto w-full max-w-295 px-4 pb-12">
       <div className="grid gap-4 rounded-2xl border border-[#cfdeeb] bg-white p-4 shadow-sm lg:grid-cols-[1fr_1.4fr]">
         <div className="rounded-xl border border-[#d5e2ef] bg-[#f8fbff] p-4">
           <h2 className="text-2xl font-bold text-[#0f4e8b]">Office Location</h2>
@@ -15,7 +15,7 @@ const OfficeMap = () => {
               8:00 AM - 5:00 PM
             </span>
           </div>
-          <p className="mt-4 text-sm text-[#4f6378]">Tel: (02) 8837-2071</p>
+          <p className="mt-4 text-sm text-[#4f6378]">Tel: 837-21-91</p>
         </div>
 
         <div className="overflow-hidden rounded-xl border border-[#d2deea]">

@@ -8,34 +8,6 @@ async function Material(slug: string) {
   return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
 }
 
-const dummyRelevantArticles = [
-  {
-    title: "DOST backs early-stage climate adaptation projects in 2026",
-    category: "DOST Programs",
-    date: "March 4, 2026",
-  },
-  {
-    title: "Regional innovation hubs expand support for young researchers",
-    category: "Innovation",
-    date: "March 1, 2026",
-  },
-  {
-    title: "Philippine science communication initiatives gain new momentum",
-    category: "Science Communication",
-    date: "February 27, 2026",
-  },
-  {
-    title: "STII launches upgraded knowledge portal tools for students",
-    category: "Education",
-    date: "February 24, 2026",
-  },
-  {
-    title: "New partnerships strengthen access to science datasets",
-    category: "Open Data",
-    date: "February 21, 2026",
-  },
-];
-
 const ArticleContent = async ({ slug }: { slug: string }) => {
   const article = await Material(slug);
 

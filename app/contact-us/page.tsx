@@ -32,7 +32,7 @@ export default function ContactUsPage() {
               <p className="mt-1 text-sm leading-6 text-[#4f6378]">
                 Telephone: (02) 837-21-91
                 <br />
-                Email: admin@stii.dost.gov.ph
+                {/* Email: admin@stii.dost.gov.ph */}
               </p>
             </article>
         </div>
