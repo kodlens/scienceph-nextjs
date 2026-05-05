@@ -39,10 +39,7 @@ export default async function Search({
         {/* Search Container */}
 
         {/* filter */}
-        <div className="flex items-center px-4">
-          <div className="font-bold font-sans text-sm text-[#334c67]">
-            FILTERS: 
-          </div>
+        <div className="w-full px-4 lg:max-w-6xl">
           <SearchFilters query={query} category={category} topic={topic} />
         </div>
 

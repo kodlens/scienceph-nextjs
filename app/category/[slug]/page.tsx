@@ -141,10 +141,7 @@ export default async function CategoryPage({
                 </p>
               </div> */}
 
-              <div className="flex items-center px-4 pb-4">
-                <div className="font-bold font-sans text-sm text-[#334c67]">
-                  FILTERS: 
-                </div>
+              <div className="pb-4">
                 <CategorySearchFilter query={rawQuery} category={slug} topic={topic} />
               </div>
 

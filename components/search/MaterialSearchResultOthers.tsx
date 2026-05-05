@@ -1,7 +1,7 @@
 "use client"
 
 import { dateFormatter, truncate } from '@/lib/utils'
-import { ApiResponseWithMeta, Material } from '@/types/material'
+import { Material } from '@/types/material'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import Pagination from '../Pagination';
@@ -21,6 +21,19 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
+  const otherItems = Array.isArray(data?.data)
+    ? data.data.filter((item, index, items) => {
+        const previousItem = items[index - 1];
+
+        if (!previousItem) return true;
+
+        return !(
+          previousItem.id === item.id ||
+          previousItem.slug === item.slug ||
+          previousItem.title.trim().toLowerCase() === item.title.trim().toLowerCase()
+        );
+      })
+    : [];
 
   const loadSearchOthers = async (): Promise<void> => {
     if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -78,66 +91,60 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
     )
   }
 
+  if (otherItems.length === 0) {
+    return null;
+  }
+
 
   return (
     <>
-      {Array.isArray(data?.data) && data.data.length > 0 ? (
-        <>
-          <div className="flex items-center my-4">
-            <div className="grow border-t border-gray-300"></div>
-            <span className="mx-4 text-gray-500 font-bold text-xs">RELATED ARTICLES</span>
-              <InfoChip title="About this section" message="Show articles from the past 5 years" />
-      
-            <div className="grow border-t border-gray-300"></div>
+      <div className="flex items-center my-4">
+        <div className="grow border-t border-gray-300"></div>
+        <span className="mx-4 text-gray-500 font-bold text-xs">RELATED ARTICLES</span>
+        <InfoChip title="About this section" message="Show articles from the past 5 years" />
+        <div className="grow border-t border-gray-300"></div>
+      </div>
+
+      {otherItems.map((item: Material, index:number) => (
+        <article
+          key={`related-${item.id}-${index}`}
+          className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
+        >
+          <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
+              {item.title}
+            </Link>
+          </h3>
+          <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
+            <span>Published:</span>
+            <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
           </div>
-          {data?.data.map((item: Material, index:number) => (
-            <article
-              key={`related-${item.id}-${index}`}
-              className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
+          <p className="mt-3 text-base leading-relaxed text-[#334c67] font-sans">
+            {truncate(item.description_text, 320, "...")}
+          </p>
+          <div className="mt-4 border-t border-[#dae4ef] pt-3">
+            <Link
+              href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic }`}
+              className="text-sm text-[#0571c6] hover:underline"
             >
-              <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
-                  {item.title}
-                </Link>
-              </h3>
-              <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
-                <span>Published:</span>
-                <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
-              </div>
-              <p className="mt-3 text-base leading-relaxed text-[#334c67] font-sans">
-                {truncate(item.description_text, 320, "...")}
-              </p>
-              <div className="mt-4 border-t border-[#dae4ef] pt-3">
-                <Link
-                  href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic }`}
-                  className="text-sm text-[#0571c6] hover:underline"
-                >
-                  /{item.slug}
-                </Link>
-              </div>
-            </article>
-          ))}
+              /{item.slug}
+            </Link>
+          </div>
+        </article>
+      ))}
 
-          {/* pagination */}
-          { data?.total && data.total > 0 && (
-            <div className="mt-6 flex justify-end">
-              <Pagination
-                currentPage={page} 
-                itemsPerPage={data?.per_page || 0}
-                onPageChange={(selectedPage) => {
-                    setPage(selectedPage);
-                }}
-                total={data?.total}
-              />
-            </div>
-          ) }
-        </> 
-      ) : (
-        null
+      {data?.total && data.total > 0 && (
+        <div className="mt-6 flex justify-end">
+          <Pagination
+            currentPage={page} 
+            itemsPerPage={data?.per_page || 0}
+            onPageChange={(selectedPage) => {
+                setPage(selectedPage);
+            }}
+            total={data?.total}
+          />
+        </div>
       )}
-
-
-      
     </>
   )
 }

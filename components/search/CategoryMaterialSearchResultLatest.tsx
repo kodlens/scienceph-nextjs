@@ -16,11 +16,23 @@ type Props = {
 };
 
 const CategoryMaterialSearchResultLatest = ({ query, category, topic }: Props) => {
-  
   const [data, setData] = useState<PaginateResponse<Material>>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
+  const latestItems = Array.isArray(data?.data)
+    ? data.data.filter((item, index, items) => {
+        const previousItem = items[index - 1];
+
+        if (!previousItem) return true;
+
+        return !(
+          previousItem.id === item.id ||
+          previousItem.slug === item.slug ||
+          previousItem.title.trim().toLowerCase() === item.title.trim().toLowerCase()
+        );
+      })
+    : [];
 
   const loadSearchLatest = async (): Promise<void> => {
     if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -78,82 +90,60 @@ const CategoryMaterialSearchResultLatest = ({ query, category, topic }: Props) =
     )
   }
 
-
-
-  if(Array.isArray(data?.data) && data.data.length > 0) {
-    return (
-      <>
-        {Array.isArray(data?.data) && data.data.length > 0 ? (
-          <>
-            <div className="flex items-center my-4">
-              <div className="grow border-t border-gray-300"></div>
-              <div className="ml-4 text-gray-500 font-bold text-xs tracking-wide">
-                NEWER ARTICLES
-              </div>
-              <InfoChip title="About this section" message="Shows the newest published materials that match your active search filters." />
-              <div className="grow border-t border-gray-300"></div>
-            </div>
-
-            {data?.data.map((item: Material) => (
-
-                <article
-                  key={`newer-${item.id}`}
-                  className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
-                >
-                  <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                    <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
-                      {item.title}
-                    </Link>
-                  </h3>
-                  <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
-                    <span>Published:</span>
-                    <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
-                  </div>
-                  <p className="mt-3 text-base leading-relaxed text-[#334c67] font-sans">
-                    {truncate(item.description_text, 320, "...")}
-                  </p>
-                  <div className="mt-4 border-t border-[#dae4ef] pt-3">
-                    <Link
-                      href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`}
-                      className="text-sm text-[#0571c6] hover:underline"
-                    >
-                      /{item.slug}
-                    </Link>
-                  </div>
-                </article>
-              
-            ))}
-          </>
-          
-        ) : (
-          <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white p-10 text-center">
-            <h3 className="text-xl font-bold text-[#1a3552]">No results found</h3>
-            <p className="mt-2 text-base text-[#5a6f87]">
-              Try broader keywords or check your spelling.
-            </p>
-          </div>
-        )}
-        
-
-        {/* pagination */}
-        <div className="mt-6 flex justify-end">
-          <Pagination 
-            currentPage={page}
-            itemsPerPage={data?.per_page || 0}
-            onPageChange={(selectedPage) => {
-              setPage(selectedPage);
-            }}
-            total={data?.total}
-          />
-        </div>
-      </>
-
-    );
+  if (latestItems.length === 0) {
+    return null;
   }
-  
+
   return (
-    null
-    
+    <>
+      <div className="flex items-center my-4">
+        <div className="grow border-t border-gray-300"></div>
+        <div className="ml-4 text-gray-500 font-bold text-xs tracking-wide">
+          NEWER ARTICLES
+        </div>
+        <InfoChip title="About this section" message="Shows the newest published materials that match your active search filters." />
+        <div className="grow border-t border-gray-300"></div>
+      </div>
+
+      {latestItems.map((item: Material, index: number) => (
+        <article
+          key={`newer-${item.id}-${index}`}
+          className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
+        >
+          <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
+              {item.title}
+            </Link>
+          </h3>
+          <div className="mt-2 flex items-center gap-2 text-sm text-[#647c96]">
+            <span>Published:</span>
+            <span>{dateFormatter(item.publish_date, "MMMM D, YYYY")}</span>
+          </div>
+          <p className="mt-3 text-base leading-relaxed text-[#334c67] font-sans">
+            {truncate(item.description_text, 320, "...")}
+          </p>
+          <div className="mt-4 border-t border-[#dae4ef] pt-3">
+            <Link
+              href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`}
+              className="text-sm text-[#0571c6] hover:underline"
+            >
+              /{item.slug}
+            </Link>
+          </div>
+        </article>
+      ))}
+
+      <div className="mt-6 flex justify-end">
+        <Pagination 
+          currentPage={page}
+          itemsPerPage={data?.per_page || 0}
+          onPageChange={(selectedPage) => {
+            setPage(selectedPage);
+          }}
+          total={data?.total}
+        />
+      </div>
+    </>
   )
 }
 
