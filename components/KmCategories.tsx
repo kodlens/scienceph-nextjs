@@ -50,7 +50,7 @@ const KmCategories = async () => {
                 {category.subject_headings.splice(0, 5).map((item) => (
                   <li key={item.id} className="text-sm text-[#42566e]">
                     <span className="mr-2 text-[#0f66ab]">›</span>
-                    <a href={`/subject-heading/${item.slug}`} className="hover:text-[#0f66ab]">
+                    <a href={`/category/${category.slug}?topic=${item.slug}`} className="hover:text-[#0f66ab]">
                       {item.subject_heading}
                     </a>
                   </li>
