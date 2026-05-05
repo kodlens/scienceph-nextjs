@@ -101,7 +101,7 @@ const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
                   className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
                 >
                   <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-                    <Link href={`/articles/${item.slug}?s=${query}`} className="hover:underline">
+                    <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
                       {item.title}
                     </Link>
                   </h3>
@@ -114,7 +114,7 @@ const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
                   </p>
                   <div className="mt-4 border-t border-[#dae4ef] pt-3">
                     <Link
-                      href={`/articles/${item.slug}`}
+                      href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`}
                       className="text-sm text-[#0571c6] hover:underline"
                     >
                       /{item.slug}

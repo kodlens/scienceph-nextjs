@@ -1,9 +1,7 @@
 import InputSearch from "@/components/InputSearch";
 import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResultLatest";
-import SideTopics from "@/components/sidebar-menu/SideTopicMenu";
 import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOthers";
 import SearchFilters from "@/components/search-filters/SeasrchFilters";
-import CategoryMenu from "@/components/sidebar-menu/SideCategoryMenu";
 import SideCategoryMenu from "@/components/sidebar-menu/SideCategoryMenu";
 import SideTopicMenu from "@/components/sidebar-menu/SideTopicMenu";
 
@@ -16,7 +14,6 @@ type Props= {
 }
 
 
-
 export default async function Search({
   searchParams,
 }: {
@@ -27,13 +24,6 @@ export default async function Search({
   const query = (params.s || "").trim();
   const category = (params.category || "").trim();
   const topic = (params.topic || "").trim();
-
-  //const results = await getMaterial(query, category, topic, 10);
-
- // const categoryCounts = Array.isArray(results.meta.category_counts) ? results.meta.category_counts : [];
-  //const subjectHeadingCounts = Array.isArray(results.meta.subject_heading_counts) ? results.meta.subject_heading_counts : [];
-  //const searchResults = Array.isArray(results.data.data) ? results.data.data : [];
-
 
   return (
 

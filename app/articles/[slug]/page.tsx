@@ -21,6 +21,9 @@ export default async function ArticlePage({
   const queryParams = await searchParams;
 
   const query = (queryParams.s || "").trim();
+  const category = (queryParams.category || "").trim();
+  const topic = (queryParams.topic || "").trim();
 
-  return <ArticleContent slug={slug} query={query} />;
+
+  return <ArticleContent slug={slug} query={query} category={category} topic={topic} />;
 }

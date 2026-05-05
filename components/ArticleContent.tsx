@@ -2,8 +2,9 @@ import { fetchFromLaravel } from "@/lib/api";
 import type { Material } from "@/types/material";
 import { dateFormatter, fixImageSources } from "@/lib/utils";
 import RelevantArticles from "./relevant-articles/RelevantArticles";
-import SideCategoryMenu from "./material/SideCategoryMenu";
-import SideTopicMenu from "./material/SideTopicMenu";
+import SideCategoryMenu from "./sidebar-menu/SideCategoryMenu";
+import SideTopicMenu from "./sidebar-menu/SideTopicMenu";
+
 
 async function Material(slug: string) {
   return fetchFromLaravel<Material>(`get-material/${slug}`, 300); // cache for 5 minutes
@@ -15,15 +16,11 @@ type Props = {
   category?: string;
   topic?: string;
 };
-const ArticleContent = async ({ slug, query, category }: Props) => {
-
-
+const ArticleContent = async ({ slug, query, category, topic }: Props) => {
+  
   const article = await Material(slug);
-  const articleCategory =
-    typeof article.category === "string"
-      ? article.category
-      : article.category?.category || "General";
 
+  
   return (
     <main className="mx-auto w-full max-w-420 px-4 py-8 md:py-10">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)_300px] xl:grid-cols-[280px_minmax(0,1fr)_320px] xl:gap-8">
@@ -31,20 +28,20 @@ const ArticleContent = async ({ slug, query, category }: Props) => {
           <SideCategoryMenu
             query={query ? query : ''}
             category={category ? category : ''}
-            topic=""
+            topic={topic ? topic : ''}
           />
 
           <SideTopicMenu
-            query={article.title}
-            category={articleCategory}
-            topic=""
+            query={query ? query : ''}
+            category={category ? category : ''}
+            topic={topic ? topic : ''}
           />
         </aside>
 
         <article className="min-w-0 rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
           <div className="p-5 md:p-7">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#b32626]">
-              {articleCategory}
+              {category || "Article"}
             </p>
             <h1 className="mt-2 text-2xl font-black leading-tight text-[#122840] md:text-4xl">
               {article.title}
