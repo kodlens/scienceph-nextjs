@@ -51,7 +51,7 @@ const LatestArticlesContent = ( { articles } : { articles: MaterialsProps[] } ) 
                 className="px-4 py-3 transition hover:bg-[#f8fbff]"
               >
                 <Link className="flex gap-3"
-                  href={`/articles/${item.slug}?category=${item.category_slug}`}>
+                  href={`/articles/${item.slug}?category=${item.category_slug}&topic=${item.topic_slug}`}>
                   <img
                     src={extractFirstImage(item.description) || "/placeholder-image.png"}
                     alt={item.title}

@@ -1,7 +1,7 @@
 "use client"
 
 import { dateFormatter, truncate } from '@/lib/utils'
-import { Material } from '@/types/material'
+import { MaterialsProps } from '@/types/material'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import Pagination from '../Pagination';
@@ -15,38 +15,26 @@ type Props = {
   topic: string;
 };
 
-type MaterialProps = {
-  id: number;
-  title: string;
-  slug: string;
-  description: string;
-  description_text: string;
-  publish_date: string;
-  source_url: string;
-  subject_headings: string;
-  subject_heading_slug: string
-  category: string
-  category_slug: string
-};
+
 
 const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
-  const [data, setData] = useState<PaginateResponse<MaterialProps>>();
+  const [data, setData] = useState<PaginateResponse<MaterialsProps>>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
-  const latestItems = Array.isArray(data?.data)
-    ? data.data.filter((item, index, items) => {
-        const previousItem = items[index - 1];
+  // const latestItems = Array.isArray(data?.data)
+  //   ? data.data.filter((item, index, items) => {
+  //       const previousItem = items[index - 1];
 
-        if (!previousItem) return true;
+  //       if (!previousItem) return true;
 
-        return !(
-          previousItem.id === item.id ||
-          previousItem.slug === item.slug ||
-          previousItem.title.trim().toLowerCase() === item.title.trim().toLowerCase()
-        );
-      })
-    : [];
+  //       return !(
+  //         previousItem.id === item.id ||
+  //         previousItem.slug === item.slug ||
+  //         previousItem.title.trim().toLowerCase() === item.title.trim().toLowerCase()
+  //       );
+  //     })
+  //   : [];
 
   const loadSearchLatest = async (): Promise<void> => {
     if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -104,7 +92,7 @@ const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
     )
   }
 
-  if (latestItems.length === 0) {
+  if (!data || data.data.length === 0) {
     return null;
   }
 
@@ -119,13 +107,18 @@ const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
         <div className="grow border-t border-gray-300"></div>
       </div>
 
-      {latestItems.map((item: MaterialProps, index: number) => (
+      {data.data.map((item: MaterialsProps, index: number) => (
         <article
           key={`newer-${item.id}-${index}`}
           className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
         >
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span className="inline-flex rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a531a]">
+              {item.topic_name}
+            </span>
+          </div>
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-            <Link href={`/articles/${item.slug}?s=${query}&category=${item.category_slug}&topic=${item.subject_heading_slug}`} className="hover:underline">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${item.category_slug}&topic=${item.topic_slug}`} className="hover:underline">
               {item.title}
             </Link>
           </h3>

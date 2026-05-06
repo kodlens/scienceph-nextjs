@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react'
 
 type TopicCount = {
-  subject_heading: string;
-  subject_heading_slug: string;
+  topic: string;
+  topic_slug: string;
   count: number;
 };
 
@@ -15,15 +15,22 @@ type Props = {
   topic?: string;
 };
 
+function normalizeSlug(value?: string) {
+  return decodeURIComponent((value || "").trim()).toLowerCase();
+}
+
 const SideTopicMenu = ({ query, category, topic }: Props) => {
   const [data, setData] = useState<TopicCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const activeTopic = normalizeSlug(topic);
+
+  
   const sortedTopics = useMemo(
     () =>
       [...data].sort((a, b) => {
         if (b.count !== a.count) return b.count - a.count;
-        return a.subject_heading.localeCompare(b.subject_heading);
+        return a.topic.localeCompare(b.topic);
       }),
     [data],
   );
@@ -104,20 +111,42 @@ const SideTopicMenu = ({ query, category, topic }: Props) => {
         ) : (
           <>
             {sortedTopics.map((item: TopicCount) => (
-              <Link
-                key={item.subject_heading_slug}
-                href={`/search?s=${query}&category=${category}&topic=${item.subject_heading_slug}`}
-                className="group flex items-center justify-between gap-3 rounded-2xl border border-[#eadfce] bg-[#fffaf4] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#ddb277] hover:bg-[#fff4e7] hover:shadow-[0_14px_30px_-24px_rgba(129,74,14,0.45)]"
-              >
-                <div>
-                  <p className="text-sm font-bold leading-6 text-[#6d4720] transition group-hover:text-[#a45b0d]">
-                    {item.subject_heading}
-                  </p>
-                </div>
-                <span className="inline-flex min-w-11 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold text-[#8a531a] ring-1 ring-[#eadfce] transition group-hover:bg-[#a45b0d] group-hover:text-white group-hover:ring-[#a45b0d]">
-                  {item.count}
-                </span>
-              </Link>
+              (() => {
+                const isSelected = normalizeSlug(item.topic_slug) === activeTopic;
+
+                return (
+                  <Link
+                    key={item.topic_slug}
+                    href={`/search?s=${query}&category=${category}&topic=${item.topic_slug}`}
+                    className={`group flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 transition duration-200 ${
+                      isSelected
+                        ? "border-[#a45b0d] bg-[#fff1df] shadow-[0_16px_34px_-24px_rgba(129,74,14,0.55)]"
+                        : "border-[#eadfce] bg-[#fffaf4] hover:-translate-y-0.5 hover:border-[#ddb277] hover:bg-[#fff4e7] hover:shadow-[0_14px_30px_-24px_rgba(129,74,14,0.45)]"
+                    }`}
+                  >
+                    <div>
+                      <p
+                        className={`text-sm font-bold leading-6 transition ${
+                          isSelected
+                            ? "text-[#a45b0d]"
+                            : "text-[#6d4720] group-hover:text-[#a45b0d]"
+                        }`}
+                      >
+                        {item.topic}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex min-w-11 items-center justify-center rounded-full px-3 py-1 text-xs font-extrabold ring-1 transition ${
+                        isSelected
+                          ? "bg-[#a45b0d] text-white ring-[#a45b0d]"
+                          : "bg-white text-[#8a531a] ring-[#eadfce] group-hover:bg-[#a45b0d] group-hover:text-white group-hover:ring-[#a45b0d]"
+                      }`}
+                    >
+                      {item.count}
+                    </span>
+                  </Link>
+                );
+              })()
             ))}
           </>
         )}

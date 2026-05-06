@@ -3,13 +3,13 @@ import { Category } from "./category";
 
 export type CategoryCount = {
   category: string;
-  slug: string;
+  category_slug: string;
   count: number;
 };
 
-export type SubjectHeadingCount = {
-  subject_heading: string;
-  slug: string;
+export type TopicCount = {
+  topic: string;
+  topic_slug: string;
   count: number;
 };
 
@@ -31,7 +31,7 @@ export type ApiResponseWithMeta = {
   };
   meta: {
     category_counts: CategoryCount[];
-    subject_heading_counts: SubjectHeadingCount[];
+    topic_counts: TopicCount[];
   };
 };
 

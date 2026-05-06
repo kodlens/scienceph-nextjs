@@ -88,21 +88,42 @@ const SideCategoryMenu = ({ query, category, topic }: Props) => {
         ) : (
           <>
             { data.map((item: CategoryCount) => (
-              <Link
-                key={item.slug}
-                href={`/search?s=${query}&category=${item.slug}&topic=`}
-                className="group flex items-center justify-between gap-3 rounded-2xl border border-[#d8e3ee] bg-[#f9fbfd] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#8fb9df] hover:bg-[#f1f7fc] hover:shadow-[0_14px_30px_-24px_rgba(6,75,130,0.65)]"
-              >
-                <div>
-                  <p className="text-sm font-bold leading-6 text-[#114878] transition group-hover:text-[#0b66b2]">
-                    {item.category}
-                  </p>
+              (() => {
+                const isSelected = item.category_slug === category;
 
-                </div>
-                <span className="inline-flex min-w-11 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold text-[#245b8f] ring-1 ring-[#d8e3ee] transition group-hover:bg-[#0b66b2] group-hover:text-white group-hover:ring-[#0b66b2]">
-                  {item.count}
-                </span>
-              </Link>
+                return (
+                  <Link
+                    key={item.category_slug}
+                    href={`/search?s=${query}&category=${item.category_slug}&topic=`}
+                    className={`group flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 transition duration-200 ${
+                      isSelected
+                        ? "border-[#0b66b2] bg-[#eaf4ff] shadow-[0_16px_34px_-24px_rgba(6,75,130,0.7)]"
+                        : "border-[#d8e3ee] bg-[#f9fbfd] hover:-translate-y-0.5 hover:border-[#8fb9df] hover:bg-[#f1f7fc] hover:shadow-[0_14px_30px_-24px_rgba(6,75,130,0.65)]"
+                    }`}
+                  >
+                    <div>
+                      <p
+                        className={`text-sm font-bold leading-6 transition ${
+                          isSelected
+                            ? "text-[#0b66b2]"
+                            : "text-[#114878] group-hover:text-[#0b66b2]"
+                        }`}
+                      >
+                        {item.category}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex min-w-11 items-center justify-center rounded-full px-3 py-1 text-xs font-extrabold ring-1 transition ${
+                        isSelected
+                          ? "bg-[#0b66b2] text-white ring-[#0b66b2]"
+                          : "bg-white text-[#245b8f] ring-[#d8e3ee] group-hover:bg-[#0b66b2] group-hover:text-white group-hover:ring-[#0b66b2]"
+                      }`}
+                    >
+                      {item.count}
+                    </span>
+                  </Link>
+                );
+              })()
             ))}
           </>
         )}
