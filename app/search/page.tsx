@@ -51,7 +51,7 @@ export default async function Search({
             <SideCategoryMenu query={query} category={category} topic={topic}/>
 
             {/* subject headings */}
-            <SideTopicMenu query={query} category={category} topic={topic} />
+            <SideTopicMenu query={query} category={category} topic={''} />
           </div>
 
           {/* left bar (result) */}

@@ -47,7 +47,7 @@ const ArticleContent = async ({ slug, query, category, topic }: Props) => {
           <SideTopicMenu
             query={query ? query : ''}
             category={category ? category : ''}
-            topic={topic ? topic : ''}
+            topic={''}
           />
         </aside>
 

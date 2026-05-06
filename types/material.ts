@@ -50,3 +50,16 @@ export type Material = {
   created_at: string ;
   updated_at: string ;
 };
+
+export type MaterialsProps = {
+  id: number;
+  title: string;
+  description: string;
+  description_text: string;
+  publish_date: string;
+  slug: string;
+  category_name: string;
+  category_slug: string;
+  topic_name: string;
+  topic_slug: string;
+}

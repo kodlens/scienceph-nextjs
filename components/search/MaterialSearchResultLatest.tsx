@@ -15,8 +15,22 @@ type Props = {
   topic: string;
 };
 
+type MaterialProps = {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  description_text: string;
+  publish_date: string;
+  source_url: string;
+  subject_headings: string;
+  subject_heading_slug: string
+  category: string
+  category_slug: string
+};
+
 const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
-  const [data, setData] = useState<PaginateResponse<Material>>();
+  const [data, setData] = useState<PaginateResponse<MaterialProps>>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
@@ -105,13 +119,13 @@ const MaterialSearchResultLatest = ({ query, category, topic }: Props) => {
         <div className="grow border-t border-gray-300"></div>
       </div>
 
-      {latestItems.map((item: Material, index: number) => (
+      {latestItems.map((item: MaterialProps, index: number) => (
         <article
           key={`newer-${item.id}-${index}`}
           className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
         >
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${item.category_slug}&topic=${item.subject_heading_slug}`} className="hover:underline">
               {item.title}
             </Link>
           </h3>

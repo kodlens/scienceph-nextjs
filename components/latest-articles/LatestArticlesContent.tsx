@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import RevealOnScroll from '../RevealOnScroll'
 import { dateFormatter, extractFirstImage, truncate } from '@/lib/utils';
-import { Material } from '@/types/material';
+import { Material, MaterialsProps } from '@/types/material';
 
-const LatestArticlesContent = ( { articles } : { articles: Material[] } ) => {
+
+
+const LatestArticlesContent = ( { articles } : { articles: MaterialsProps[] } ) => {
   const featuredArticle = articles[0];
 
   if (!featuredArticle) {
@@ -41,7 +43,7 @@ const LatestArticlesContent = ( { articles } : { articles: Material[] } ) => {
                 Updated
               </span>
             </div>
-            {articles.slice(1,9).map((item:Material, index:number) => (
+            {articles.slice(1,9).map((item:MaterialsProps, index:number) => (
               <RevealOnScroll
                 key={item.title}
                 as="article"
@@ -49,7 +51,7 @@ const LatestArticlesContent = ( { articles } : { articles: Material[] } ) => {
                 className="px-4 py-3 transition hover:bg-[#f8fbff]"
               >
                 <Link className="flex gap-3"
-                  href={`/articles/${item.slug}`}>
+                  href={`/articles/${item.slug}?category=${item.category_slug}`}>
                   <img
                     src={extractFirstImage(item.description) || "/placeholder-image.png"}
                     alt={item.title}

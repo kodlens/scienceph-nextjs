@@ -2,12 +2,12 @@ import React from 'react'
 import RevealOnScroll from '../RevealOnScroll'
 import Link from 'next/link'
 import SectionTitle from '../SectionTitle';
-import { Material } from '@/types/material';
+import { Material, MaterialsProps } from '@/types/material';
 import { dateFormatter, truncate } from '@/lib/utils';
 
 
-const MostPopularArticlesContent = ( { materials } : {materials : Material[] }) => {
 
+const MostPopularArticlesContent = ( { materials } : {materials : MaterialsProps[] }) => {
 
   return (
     <section className="mx-auto w-full max-w-295 px-4 pb-10">
@@ -18,7 +18,7 @@ const MostPopularArticlesContent = ( { materials } : {materials : Material[] }) 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {materials.map((material, index) => (
           <RevealOnScroll
-            key={material.title}
+            key={`${material.id}-${index}`}
             as="article"
             delay={index * 110}
             className="overflow-hidden rounded-xl border border-[#d3e0ec] bg-white shadow-sm transition hover:-translate-y-1 hover:border-[#bdd2e6] hover:shadow-md"
@@ -31,13 +31,13 @@ const MostPopularArticlesContent = ( { materials } : {materials : Material[] }) 
               }} /> */}
             <div className="p-4">
               <span className="rounded-full bg-[#fff1f1] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#b32626]">
-                { material.category?.category }
+                { material.category_name }
               </span>
               <h3 className="mt-2 text-lg font-bold leading-tight text-[#16283d]">{material.title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#51647a]">{truncate(material.description_text, 200)}</p>
               <div className="mt-3 flex items-center justify-between border-t border-[#e4ecf4] pt-3">
                 <p className="text-xs text-[#718297]">{dateFormatter(material.publish_date)}</p>
-                <Link href={`/articles/${material.slug}`} className="text-xs font-semibold text-[#b32626] hover:underline">
+                <Link href={`/articles/${material.slug}?category=${material.category_slug}&topic=${material.topic_slug}`} className="text-xs font-semibold text-[#b32626] hover:underline">
                   Read more
                 </Link>
               </div>

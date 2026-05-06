@@ -2,18 +2,11 @@ import { fetchFromLaravel } from "@/lib/api";
 import { dateFormatter, truncate } from "@/lib/utils";
 import { PaginateResponse } from "@/types/laravelResponse";
 import { Material } from "@/types/material";
-import ReactPagination from "@/components/pagination/ReactPagination";
-import Link from "next/link";
-import SideCategories from "@/components/sidebar-menu/SideCategoryMenu";
-import SideTopics from "@/components/sidebar-menu/SideTopicMenu";
-import SearchCategoriesLabel from "@/components/search-category/SearchCategoriesLabel";
-import CategorySideTopic from "@/components/sidebar-menu/CategoryTopic";
-import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResultLatest";
-import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOthers";
-import SearchFilters from "@/components/search-filters/SeasrchFilters";
+
 import CategorySearchFilter from "@/components/search-filters/CategorySearchFilter";
 import CategoryMaterialSearchResultLatest from "@/components/search/CategoryMaterialSearchResultLatest";
 import CategoryMaterialSearchResultRelated from "@/components/search/CategoryMaterialSearchResultRelated";
+import CategorySideTopic from "@/components/sidebar-menu/CategorySideTopic";
 
 const LOCAL_PER_PAGE = 10;
 
