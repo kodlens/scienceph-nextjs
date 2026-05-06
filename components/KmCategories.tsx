@@ -17,7 +17,12 @@ type CategoryWithSubjectHeadings = Category & {
 };
 
 async function getCategories() {
-  return fetchFromLaravel<CategoryWithSubjectHeadings[]>("load-categories", 60);
+  try {
+    return await fetchFromLaravel<CategoryWithSubjectHeadings[]>("load-categories", 60);
+  } catch (error) {
+    console.error("Failed to load homepage categories:", error);
+    return [];
+  }
 }
 
 

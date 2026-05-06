@@ -4,6 +4,11 @@ import { dateFormatter, extractFirstImage, truncate } from '@/lib/utils';
 import { Material } from '@/types/material';
 
 const LatestArticlesContent = ( { articles } : { articles: Material[] } ) => {
+  const featuredArticle = articles[0];
+
+  if (!featuredArticle) {
+    return null;
+  }
 
   return (
     <section className="mx-auto w-full max-w-295 px-4 pt-8 pb-10 md:pt-10">
@@ -12,19 +17,19 @@ const LatestArticlesContent = ( { articles } : { articles: Material[] } ) => {
           <article className="border-b border-[#d9e5f1] lg:border-b-0 lg:border-r">
             <div className="h-80 w-full"
               style={{
-                backgroundImage: `url(${extractFirstImage(articles[0].description) || "/placeholder-image.png"})`,
+                backgroundImage: `url(${extractFirstImage(featuredArticle.description) || "/placeholder-image.png"})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }} />
             <div className="p-5">
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#b32626]">Feature Story</p>
               <h3 className="text-2xl font-bold leading-tight text-[#0f365f] md:text-3xl">
-                <Link href={`/articles/${articles[0].slug}`} className="hover:underline">
-                  {articles[0].title}
+                <Link href={`/articles/${featuredArticle.slug}`} className="hover:underline">
+                  {featuredArticle.title}
                 </Link>
               </h3>
               <p className="mt-3 text-sm leading-6 text-[#4d5f74]">
-                { truncate(articles[0].description_text, 180, "...") }
+                { truncate(featuredArticle.description_text, 180, "...") }
               </p>
             </div>
           </article>

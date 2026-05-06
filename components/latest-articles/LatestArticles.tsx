@@ -3,7 +3,12 @@ import { fetchFromLaravel } from '@/lib/api';
 import { Material } from '@/types/material';
 
 async function getLatestArticles() {
-  return fetchFromLaravel<Material[]>("load-latest-materials", 60);
+  try {
+    return await fetchFromLaravel<Material[]>("load-latest-materials", 60);
+  } catch (error) {
+    console.error("Failed to load latest articles:", error);
+    return [];
+  }
 }
 
 const LatestArticles = async () => {
