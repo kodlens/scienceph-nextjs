@@ -16,9 +16,22 @@ type Props = {
   category?: string;
   topic?: string;
 };
+
+function formatLabel(value: string) {
+  return value
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 const ArticleContent = async ({ slug, query, category, topic }: Props) => {
-  
   const article = await Material(slug);
+  const articleCategory =
+    category ||
+    (typeof article.category === "string"
+      ? article.category
+      : article.category?.category || "");
+  const articleTopic = topic || "";
 
   
   return (
@@ -41,7 +54,7 @@ const ArticleContent = async ({ slug, query, category, topic }: Props) => {
         <article className="min-w-0 rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
           <div className="p-5 md:p-7">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#b32626]">
-              {category || "Article"}
+              {articleCategory || "Article"}
             </p>
             <h1 className="mt-2 text-2xl font-black leading-tight text-[#122840] md:text-4xl">
               {article.title}
@@ -50,6 +63,22 @@ const ArticleContent = async ({ slug, query, category, topic }: Props) => {
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#5a6f88]">
               <span>By {article.author || "DOST-STII"}</span>
               <span>{dateFormatter(article.publish_date)}</span>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {articleCategory && (
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#cfe0f2] bg-[#edf5fd] px-3 py-1.5 text-xs font-bold text-[#114878]">
+                  <span className="uppercase tracking-[0.18em] text-[10px] text-[#5f7e9d]">Category</span>
+                  <span>{formatLabel(articleCategory)}</span>
+                </span>
+              )}
+
+              {articleTopic && (
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1.5 text-xs font-bold text-[#8a531a]">
+                  <span className="uppercase tracking-[0.18em] text-[10px] text-[#a47a45]">Topic</span>
+                  <span>{formatLabel(articleTopic)}</span>
+                </span>
+              )}
             </div>
 
             <div className="mt-6 border-t border-[#e1eaf3] pt-6">
