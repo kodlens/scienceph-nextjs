@@ -101,7 +101,7 @@ const SearchFilters = ({ query, category, topic }: Props) => {
       <div className="mt-4 flex flex-wrap gap-2.5">
         {query && (
           <FilterChip
-            label="Query"
+            label="Search"
             value={query}
             tone="border-[#f2c3c3] bg-[#fff2f2] text-[#a02727]"
             onRemove={() => updateFilters({ s: "" })}

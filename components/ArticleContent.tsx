@@ -44,11 +44,11 @@ const ArticleContent = async ({ slug, query, category, topic }: Props) => {
             topic=""
           />
 
-          <SideTopicMenu
+          {/* <SideTopicMenu
             query={query ? query : ''}
             category={category ? category : ''}
             topic={''}
-          />
+          /> */}
         </aside>
 
         <article className="min-w-0 rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">
