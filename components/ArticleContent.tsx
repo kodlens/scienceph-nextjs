@@ -15,6 +15,7 @@ type Props = {
   query?: string;
   category?: string;
   topic?: string;
+  type?: string;
 };
 
 function formatLabel(value: string) {
@@ -24,7 +25,7 @@ function formatLabel(value: string) {
     .join(" ");
 }
 
-const ArticleContent = async ({ slug, query, category, topic }: Props) => {
+const ArticleContent = async ({ slug, query, category, topic, type }: Props) => {
   const article = await Material(slug);
   const articleCategory =
     category ||
@@ -42,6 +43,7 @@ const ArticleContent = async ({ slug, query, category, topic }: Props) => {
             query={query ? query : ''}
             category={category ? category : ''}
             topic=""
+            type={type ? type : "all"}
           />
 
           {/* <SideTopicMenu
@@ -49,6 +51,7 @@ const ArticleContent = async ({ slug, query, category, topic }: Props) => {
             category={category ? category : ''}
             topic={''}
           /> */}
+          
         </aside>
 
         <article className="min-w-0 rounded-2xl border border-[#cfdeeb] bg-white shadow-sm">

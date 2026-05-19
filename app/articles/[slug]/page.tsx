@@ -8,6 +8,7 @@ type SearchParams = {
   s?: string;
   category?: string;
   topic?: string;
+  type?: string;
 };
 
 export default async function ArticlePage({
@@ -23,7 +24,8 @@ export default async function ArticlePage({
   const query = (queryParams.s || "").trim();
   const category = (queryParams.category || "").trim();
   const topic = (queryParams.topic || "").trim();
+  const type = (queryParams.type || "all").trim();
 
 
-  return <ArticleContent slug={slug} query={query} category={category} topic={topic} />;
+  return <ArticleContent slug={slug} query={query} category={category} topic={topic} type={type} />;
 }

@@ -61,5 +61,6 @@ export type MaterialsProps = {
   category_name: string;
   category_slug: string;
   topic_name: string;
+  topic_names?: string;
   topic_slug: string;
 }

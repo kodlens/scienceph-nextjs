@@ -115,9 +115,17 @@ const MaterialSearchResultLatest = ({ query, category, topic, type }: Props) => 
           className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
         >
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="inline-flex rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a531a]">
-              {item.topic_name}
-            </span>
+            {(item.topic_names ? item.topic_names.split(",") : [item.topic_name])
+              .map((topicName) => topicName.trim())
+              .filter(Boolean)
+              .map((topicName) => (
+                <span
+                  key={`${item.id}-${topicName}`}
+                  className="inline-flex rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a531a]"
+                >
+                  {topicName}
+                </span>
+              ))}
           </div>
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
             <Link href={`/articles/${item.slug}?s=${query}&category=${item.category_slug}&topic=${item.topic_slug}&type=${type}`} className="hover:underline">
@@ -157,3 +165,4 @@ const MaterialSearchResultLatest = ({ query, category, topic, type }: Props) => 
 }
 
 export default MaterialSearchResultLatest
+
