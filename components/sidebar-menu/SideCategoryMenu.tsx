@@ -10,6 +10,7 @@ type Props = {
   query: string;
   category: string;
   topic: string;
+  type: string;
 }
 
 type CategoryTopic = {
@@ -23,7 +24,7 @@ type CategoryWithTopics = CategoryCount & {
   topics?: CategoryTopic[];
 };
 
-const SideCategoryMenu = ({ query, category, topic }: Props) => {
+const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
   const [data, setData] = useState<CategoryWithTopics[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +39,8 @@ const SideCategoryMenu = ({ query, category, topic }: Props) => {
       const params = new URLSearchParams({
         's': query,
         'category': category,
-        'topic': topic
+        'topic': topic,
+        'type': type
       }).toString();
       setLoading(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/side-menu/category-labels?${params}`, {
@@ -64,7 +66,7 @@ const SideCategoryMenu = ({ query, category, topic }: Props) => {
 
   useEffect(() => {
     loadCategoryCounts();
-  }, [query, category, topic]);
+  }, [query, category, topic, type]);
 
   return (
     <div className="overflow-hidden rounded-[28px] border border-[#cfd9e5] bg-white shadow-[0_18px_45px_-30px_rgba(7,53,98,0.45)]">
@@ -105,7 +107,7 @@ const SideCategoryMenu = ({ query, category, topic }: Props) => {
               const isCategoryMatched = item.category_slug === category;
               const isCategorySelected = isCategoryMatched && !topic;
               const isOpen = openCategorySlug === item.category_slug;
-              const categoryHref = `/search?s=${query}&category=${item.category_slug}&topic=`;
+              const categoryHref = `/search?s=${query}&category=${item.category_slug}&topic=&type=${type}`;
 
               return (
                 <div
@@ -180,7 +182,7 @@ const SideCategoryMenu = ({ query, category, topic }: Props) => {
                         return (
                           <Link
                             key={topicItem.slug}
-                            href={`/search?s=${query}&category=${item.category_slug}&topic=${topicItem.slug}`}
+                            href={`/search?s=${query}&category=${item.category_slug}&topic=${topicItem.slug}&type=${type}`}
                             className={`mb-1 flex items-center justify-between rounded-xl px-3 py-1.5 text-xs font-semibold transition last:mb-0 ${
                               isTopicSelected
                                 ? "bg-[#0b66b2] text-white"

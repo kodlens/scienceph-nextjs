@@ -1,5 +1,5 @@
 "use client"
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useTransition } from 'react'
 
 
@@ -8,6 +8,7 @@ type Props = {
 }
 const InputSearch = ({ query }: Props) => {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [search, setSearch] = React.useState(query || '')
   const [isPending, startTransition] = useTransition()
 
@@ -15,7 +16,15 @@ const InputSearch = ({ query }: Props) => {
     if (!key.trim()) return
 
     startTransition(() => {
-      router.push(`/search?s=${encodeURIComponent(key)}`)
+      const params = new URLSearchParams()
+      params.set("s", key.trim())
+
+      const type = searchParams.get("type")
+      if (type) {
+        params.set("type", type)
+      }
+
+      router.push(`/search?${params.toString()}`)
     })
   }
   return (

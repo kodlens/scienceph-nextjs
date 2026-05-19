@@ -13,9 +13,10 @@ type Props = {
   query: string;
   category: string;
   topic: string;
+  type: string;
 };
 
-const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
+const MaterialSearchResultOthers = ({ query, category, topic, type }: Props) => {
 
   const [data, setData] = useState<PaginateResponse<MaterialsProps>>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -45,6 +46,7 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
         's': query,
         'category': category,
         'topic': topic,
+        'type': type,
         page: page.toString(),
       }).toString();
       setLoading(true);
@@ -73,7 +75,7 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
 
   useEffect(() => {
     loadSearchOthers();
-  }, [query, category, topic, page]);
+  }, [query, category, topic, type, page]);
 
 
   if(loading) {
@@ -116,7 +118,7 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
             </span>
           </div>
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}&type=${type}`} className="hover:underline">
               {item.title}
             </Link>
           </h3>
@@ -129,7 +131,7 @@ const MaterialSearchResultOthers = ({ query, category, topic }: Props) => {
           </p>
           <div className="mt-4 border-t border-[#dae4ef] pt-3">
             <Link
-              href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic }`}
+              href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}&type=${type}`}
               className="text-sm text-[#0571c6] hover:underline"
             >
               /{item.slug}

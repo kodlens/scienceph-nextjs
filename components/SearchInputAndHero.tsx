@@ -1,6 +1,28 @@
+"use client";
+
 import InputSearch from './InputSearch'
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const SearchInputAndHero = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const selectedType = (searchParams.get("type") || "all").toLowerCase();
+
+  const tabs = [
+    { label: "All", value: "all" },
+    { label: "Articles", value: "articles" },
+    { label: "Videos", value: "videos" },
+    { label: "People", value: "people" },
+  ];
+
+  const onSelectType = (type: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("type", type);
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname);
+  };
 
   return (
     <section
@@ -26,15 +48,12 @@ const SearchInputAndHero = () => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
-          {[
-            { label: "All", active: true },
-            { label: "Articles", active: false },
-            { label: "Videos", active: false },
-            { label: "People", active: false },
-          ].map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab.label}
-              className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${tab.active
+              type="button"
+              onClick={() => onSelectType(tab.value)}
+              className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${selectedType === tab.value
                 ? "border-[#f1b2b2] bg-[#fff0f0] text-[#a32020]"
                 : "border-white/45 bg-white/18 text-white hover:bg-white/28"
                 }`}

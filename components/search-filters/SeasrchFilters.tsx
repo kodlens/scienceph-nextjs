@@ -7,6 +7,7 @@ type Props = {
   query: string;
   category: string;
   topic: string;
+  type: string;
 };
 
 type FilterChipProps = {
@@ -15,6 +16,13 @@ type FilterChipProps = {
   tone: string;
   onRemove: () => void;
 };
+
+const typeTabs = [
+  { label: "All", value: "all" },
+  { label: "Articles", value: "articles" },
+  { label: "Videos", value: "videos" },
+  { label: "People", value: "people" },
+];
 
 function formatFilterLabel(value: string): string {
   return value
@@ -44,10 +52,12 @@ function FilterChip({ label, value, tone, onRemove }: FilterChipProps) {
   );
 }
 
-const SearchFilters = ({ query, category, topic }: Props) => {
+const SearchFilters = ({ query, category, topic, type }: Props) => {
   const router = useRouter();
+  const selectedType = (type || "all").toLowerCase();
+  const hasFilters = Boolean(query || category || topic || selectedType !== "all");
 
-  const updateFilters = (updates: Partial<Record<"s" | "category" | "topic", string>>) => {
+  const updateFilters = (updates: Partial<Record<"s" | "category" | "topic" | "type", string>>) => {
     const params = new URLSearchParams(window.location.search);
 
     Object.entries(updates).forEach(([key, value]) => {
@@ -55,7 +65,6 @@ const SearchFilters = ({ query, category, topic }: Props) => {
         params.set(key, value);
         return;
       }
-
       params.delete(key);
     });
 
@@ -63,30 +72,24 @@ const SearchFilters = ({ query, category, topic }: Props) => {
     router.push(queryString ? `/search?${queryString}` : "/search");
   };
 
-  const hasFilters = Boolean(query || category || topic);
-
-  if (!hasFilters) {
-    return (
-      <div className="rounded-2xl border border-dashed border-[#cfd9e5] bg-white/80 px-4 py-3 text-sm text-[#5a6f87]">
-        No active filters.
-      </div>
-    );
-  }
-
   return (
     <div className="w-full rounded-[28px] border border-[#d6e0eb] bg-white px-4 py-4 shadow-[0_16px_36px_-28px_rgba(8,52,97,0.45)]">
-      <div className="mb-3 inline-flex items-center rounded-full bg-[#eff4f9] px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#45637e]">
-        Filters
-      </div>
-
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-        <div>
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-[#70839a]">
-            Active Filters
-          </p>
-          <p className="mt-1 text-sm text-[#51647a]">
-            Remove any chip to widen the search results.
-          </p>
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-wrap items-center gap-2">
+          {typeTabs.map((tab) => (
+            <button
+              key={tab.value}
+              type="button"
+              onClick={() => updateFilters({ type: tab.value })}
+              className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
+                selectedType === tab.value
+                  ? "border-[#f1b2b2] bg-[#fff0f0] text-[#a32020]"
+                  : "border-[#cad8e7] bg-[#f7fbff] text-[#2c4f72] hover:bg-[#edf5fd]"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         <button
@@ -98,7 +101,18 @@ const SearchFilters = ({ query, category, topic }: Props) => {
         </button>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2.5">
+      {hasFilters && <div className="my-4 border-t border-[#e4ecf5]" />}
+
+      <div className="flex flex-wrap gap-2.5">
+        {selectedType !== "all" && (
+          <FilterChip
+            label="Type"
+            value={selectedType}
+            tone="border-[#d8cfee] bg-[#f4effd] text-[#56358b]"
+            onRemove={() => updateFilters({ type: "all" })}
+          />
+        )}
+
         {query && (
           <FilterChip
             label="Search"

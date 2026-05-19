@@ -11,6 +11,7 @@ type Props= {
   page?: string;
   category?: string;
   topic?: string;
+  type?: string;
 }
 
 
@@ -24,6 +25,7 @@ export default async function Search({
   const query = (params.s || "").trim();
   const category = (params.category || "").trim();
   const topic = (params.topic || "").trim();
+  const type = (params.type || "all").trim();
 
   return (
 
@@ -40,7 +42,7 @@ export default async function Search({
 
         {/* filter */}
         <div className="w-full px-4 lg:max-w-6xl">
-          <SearchFilters query={query} category={category} topic={topic} />
+          <SearchFilters query={query} category={category} topic={topic} type={type} />
         </div>
 
         <div className="flex gap-4 w-full lg:max-w-6xl px-4">
@@ -48,7 +50,7 @@ export default async function Search({
           {/* sidebar (categories, topics */}
           <div className="md:flex md:flex-col md:gap-4 hidden w-87.5">
             {/* categories */}
-            <SideCategoryMenu query={query} category={category} topic={topic}/>
+            <SideCategoryMenu query={query} category={category} topic={topic} type={type}/>
 
             {/* subject headings */}
             {/* <SideTopicMenu query={query} category={category} topic={topic} /> */}
@@ -56,10 +58,10 @@ export default async function Search({
 
           {/* left bar (result) */}
           <div className="flex-1">
-            <MaterialSearchResultsLatest query={query} category={category} topic={topic} />
+            <MaterialSearchResultsLatest query={query} category={category} topic={topic} type={type} />
 
             <div className="mt-4">
-              <MaterialSearchResultsOthers query={query} category={category} topic={topic} />
+              <MaterialSearchResultsOthers query={query} category={category} topic={topic} type={type} />
             </div>
           </div>
         </div>
