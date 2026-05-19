@@ -42,6 +42,7 @@ export type Material = {
   slug: string;
   description: string;
   description_text: string;
+  topics?: string;
   author: string;
   publish_date: string;
   is_press_release: boolean;

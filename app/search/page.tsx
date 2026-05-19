@@ -1,9 +1,8 @@
 import InputSearch from "@/components/InputSearch";
-import MaterialSearchResultsLatest from "@/components/search/MaterialSearchResultLatest";
-import MaterialSearchResultsOthers from "@/components/search/MaterialSearchResultOthers";
+import SearchResultsGroup from "@/components/search/SearchResultsGroup";
 import SearchFilters from "@/components/search-filters/SeasrchFilters";
 import SideCategoryMenu from "@/components/sidebar-menu/SideCategoryMenu";
-import SideTopicMenu from "@/components/sidebar-menu/SideTopicMenu";
+//import SideTopicMenu from "@/components/sidebar-menu/SideTopicMenu";
 
 
 type Props= {
@@ -58,11 +57,7 @@ export default async function Search({
 
           {/* left bar (result) */}
           <div className="flex-1">
-            <MaterialSearchResultsLatest query={query} category={category} topic={topic} type={type} />
-
-            <div className="mt-4">
-              <MaterialSearchResultsOthers query={query} category={category} topic={topic} type={type} />
-            </div>
+            <SearchResultsGroup query={query} category={category} topic={topic} type={type} />
           </div>
         </div>
       </div>
@@ -79,3 +74,4 @@ export default async function Search({
     </main>
   );
 }
+

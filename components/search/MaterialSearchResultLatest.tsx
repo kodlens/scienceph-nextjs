@@ -14,11 +14,12 @@ type Props = {
   category: string;
   topic: string;
   type: string;
+  onCountChange?: (count: number) => void;
 };
 
 
 
-const MaterialSearchResultLatest = ({ query, category, topic, type }: Props) => {
+const MaterialSearchResultLatest = ({ query, category, topic, type, onCountChange }: Props) => {
   const [data, setData] = useState<PaginateResponse<MaterialsProps>>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,6 +79,12 @@ const MaterialSearchResultLatest = ({ query, category, topic, type }: Props) => 
   useEffect(() => {
     loadSearchLatest();
   }, [query, category, topic, type, page]);
+
+  useEffect(() => {
+    if (!loading) {
+      onCountChange?.(data?.data?.length || 0);
+    }
+  }, [loading, data, onCountChange]);
 
   if(loading) {
     return (
@@ -165,4 +172,6 @@ const MaterialSearchResultLatest = ({ query, category, topic, type }: Props) => 
 }
 
 export default MaterialSearchResultLatest
+
+
 

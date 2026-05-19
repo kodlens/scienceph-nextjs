@@ -7,14 +7,14 @@ const Header = () => {
     <header className="sticky top-0 z-120 overflow-visible border-b border-[#d8e3ef] bg-white/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-295 items-center justify-between gap-4 px-4 py-4">
         <div className="flex items-center gap-3">
-          <Image src="/images/stii.png" 
-            alt="SciencePH Logo" 
-            width={34} 
-            height={34} />
-          <div>
-            <p className="text-2xl font-black leading-none text-[#14345a]">science.ph</p>
-            <p className="text-xs tracking-wide text-[#cf2e2e]">Science for every Juan</p>
-          </div>
+          <Image src="/images/dost-stii.png" 
+            alt="DOST and DOST-STII Logo" 
+            width={200} 
+            height={200} 
+            style={{
+              width: "100%",
+              height: "auto",
+            }}/>
         </div>
 
         {/* <p className="hidden text-sm italic text-[#6e8097] lg:block">
@@ -22,12 +22,10 @@ const Header = () => {
         </p> */}
 
         <div className="hidden items-center gap-2 md:flex">
-          <span className="rounded-full border border-[#c5d7ea] bg-[#f5f9fd] px-3 py-1 text-xs font-semibold text-[#1e4f81]">
-            24/7 Access
-          </span>
-          <span className="rounded-full border border-[#c5d7ea] bg-[#f5f9fd] px-3 py-1 text-xs font-semibold text-[#1e4f81]">
-            Verified Sources
-          </span>
+          <div>
+            <p className="text-2xl font-black leading-none text-[#14345a]">STII-KM</p>
+            <p className="text-xs tracking-wide text-[#cf2e2e]">One Hub for All Knowledge</p>
+          </div>
         </div>
       </div>
 

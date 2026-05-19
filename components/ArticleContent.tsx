@@ -25,14 +25,20 @@ function formatLabel(value: string) {
     .join(" ");
 }
 
-const ArticleContent = async ({ slug, query, category, topic, type }: Props) => {
+const ArticleContent = async ({ slug, query, category, type }: Props) => {
   const article = await Material(slug);
   const articleCategory =
     category ||
     (typeof article.category === "string"
       ? article.category
       : article.category?.category || "");
-  const articleTopic = topic || "";
+
+  const articleTopics = (article.topics || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+    
 
   
   return (
@@ -76,12 +82,15 @@ const ArticleContent = async ({ slug, query, category, topic, type }: Props) => 
                 </span>
               )}
 
-              {articleTopic && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1.5 text-xs font-bold text-[#8a531a]">
+              {articleTopics.map((topicName) => (
+                <span
+                  key={topicName}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1.5 text-xs font-bold text-[#8a531a]"
+                >
                   <span className="uppercase tracking-[0.18em] text-[10px] text-[#a47a45]">Topic</span>
-                  <span>{formatLabel(articleTopic)}</span>
+                  <span>{topicName}</span>
                 </span>
-              )}
+              ))}
             </div>
 
             <div className="mt-6 border-t border-[#e1eaf3] pt-6">
