@@ -125,12 +125,12 @@ const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
                         prev === item.category_slug ? "" : item.category_slug
                       )
                     }
-                    className={`group flex w-full items-center justify-between gap-3 px-4 py-2 leading-none text-left transition ${
+                    className={`group flex w-full items-center justify-between gap-3 px-4 pt-2 leading-none text-left transition ${
                       isCategoryMatched ? "bg-[#edf5ff]" : ""
                     }`}
                   >
                     <p
-                      className={`text-sm font-bold leading-5 transition ${
+                      className={`text-sm pb-2 font-bold leading-5 transition ${
                         isOpen || isCategoryMatched
                           ? "text-[#0b66b2]"
                           : "text-[#114878] group-hover:text-[#0b66b2]"
