@@ -105,6 +105,7 @@ const CategorySideTopic = ({ query, category, topic }: Props) => {
           <>
             {sortedTopics.map((item: TopicCount) => (
               <Link
+                prefetch={false}
                 key={item.subject_heading_slug}
                 href={`/category/${category}?topic=${item.subject_heading_slug}&q=${query}`}
                 className="group flex items-center justify-between gap-3 rounded-2xl border border-[#eadfce] bg-[#fffaf4] px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#ddb277] hover:bg-[#fff4e7] hover:shadow-[0_14px_30px_-24px_rgba(129,74,14,0.45)]"

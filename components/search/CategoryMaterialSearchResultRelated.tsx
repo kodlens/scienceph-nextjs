@@ -112,7 +112,9 @@ const CategoryMaterialSearchResultRelated = ({ query, category, topic }: Props) 
             </span>
           </div>
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} className="hover:underline">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} 
+              prefetch={false}
+              className="hover:underline">
               {item.title}
             </Link>
           </h3>
@@ -125,6 +127,7 @@ const CategoryMaterialSearchResultRelated = ({ query, category, topic }: Props) 
           </p>
           <div className="mt-4 border-t border-[#dae4ef] pt-3">
             <Link
+              prefetch={false}
               href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`}
               className="text-sm text-[#0571c6] hover:underline"
             >
