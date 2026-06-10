@@ -105,16 +105,17 @@ const CategoryMaterialSearchResultLatest = ({ query, category, topic }: Props) =
         <div className="grow border-t border-gray-300"></div>
       </div>
 
-      {data.data.map((item: MaterialsProps, index: number) => (
+      { data.data.map((item: MaterialsProps, index: number) => (
         <article
           key={`newer-${item.id}-${index}`}
           className="rounded-2xl border border-[#cfd9e3] bg-white p-5 shadow-sm md:p-6 mb-4"
         >
-          <div className="mb-3 flex flex-wrap items-center gap-2">
+          {/* <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="inline-flex rounded-full border border-[#eadfce] bg-[#fff7eb] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a531a]">
               {item.topic_name}
             </span>
-          </div>
+          </div> */}
+          
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
             <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}`} 
               prefetch={false}

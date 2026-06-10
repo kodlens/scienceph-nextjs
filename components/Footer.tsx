@@ -32,12 +32,12 @@ const Footer = async () => {
     <footer className="border-t border-[#264a72] bg-[linear-gradient(180deg,#0f3a67_0%,#0b2f53_100%)] text-white">
       <div className="mx-auto grid w-full max-w-295 gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div className="max-w-sm">
-          <h2 className="text-xl font-bold">science.ph</h2>
+          <h2 className="text-xl font-bold">DOST-STII KM</h2>
           <p className="mt-3 text-sm text-[#d4e0ed]">
             Science information portal for news, opportunities, and innovation updates in the
             Philippines.
           </p>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-[#f1b2b2]">
+          <p className="mt-4 text-xs font-semibold uppercase tracking-wide">
             Discover Knowledge. Inspire Innovation.
           </p>
         </div>

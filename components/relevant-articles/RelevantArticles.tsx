@@ -69,14 +69,14 @@ const RelevantArticles = ({ slug, category, topic }: Props) => {
   //   console.log(data);
   // }, [data])
 
-  
+
 
   if (loading) {
     return <div className='text-sm'>Loading...</div>;
   }
 
   if (error) {
-    return <div className='text-sm'>Error fetching data.</div>;
+    return <div className='text-sm'>We couldn&apos;t load the data at the moment. Please try again or reload the page.</div>;
   }
 
   return (
