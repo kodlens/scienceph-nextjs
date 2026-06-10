@@ -150,6 +150,7 @@ const MaterialSearchResultOthers = ({ query, category, topic, type, onCountChang
             <Link
               href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}&type=${type}`}
               className="text-sm text-[#0571c6] hover:underline"
+              prefetch={false}
             >
               /{item.slug}
             </Link>

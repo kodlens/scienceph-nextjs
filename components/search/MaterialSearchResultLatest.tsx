@@ -135,7 +135,9 @@ const MaterialSearchResultLatest = ({ query, category, topic, type, onCountChang
               ))}
           </div>
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-            <Link href={`/articles/${item.slug}?s=${query}&category=${item.category_slug}&topic=${item.topic_slug}&type=${type}`} className="hover:underline">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${item.category_slug}&topic=${item.topic_slug}&type=${type}`} 
+              prefetch={false}
+              className="hover:underline">
               {item.title}
             </Link>
           </h3>
@@ -150,6 +152,7 @@ const MaterialSearchResultLatest = ({ query, category, topic, type, onCountChang
             <Link
               href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}&type=${type}`}
               className="text-sm text-[#0571c6] hover:underline"
+              prefetch={false}
             >
               /{item.slug}
             </Link>
