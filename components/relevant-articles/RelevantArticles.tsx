@@ -13,10 +13,10 @@ const RelevantArticles = ({ slug }: Props) => {
   const [data, setData] = useState<Material[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState<number>(1);
+  //const [page, setPage] = useState<number>(1);
 
 
-  const loadSearchLatest = async (): Promise<void> => {
+  const loadRelatedArticles = async (): Promise<void> => {
     if (!process.env.NEXT_PUBLIC_API_URL) {
       console.error("Missing NEXT_PUBLIC_API_URL");
       return;
@@ -48,7 +48,7 @@ const RelevantArticles = ({ slug }: Props) => {
   };
 
   useEffect(() => {
-    loadSearchLatest();
+    loadRelatedArticles();
   }, [slug]);
   
 
@@ -56,12 +56,17 @@ const RelevantArticles = ({ slug }: Props) => {
     return <div className='text-sm'>Loading...</div>;
   }
 
+  if (error) {
+    return <div className='text-sm'>Error fetching data.</div>;
+  }
+
 
   return (
     <div className="space-y-3">
       { data?.map((item: Material) => (
         <Link
-          href="#"
+          prefetch={false}
+          href={`/articles/${item.slug}?category=${item.category}`}
           key={item.slug}
           className="block rounded-lg border border-[#dbe6f1] bg-[#fbfdff] p-3 transition hover:border-[#c7d9ea] hover:bg-[#f5f9fd]"
         >
