@@ -20,14 +20,78 @@ export default function AboutUsPage() {
       <section className="rounded-2xl border border-[#cfdeeb] bg-white p-6 shadow-sm md:p-8">
         <SectionTitle
           title="About Us"
-          subtitle="Learn more about science.ph, its purpose, and how it supports science communication in the Philippines."
+          subtitle=""
         />
 
         <div className="rounded-xl border border-[#d8e3ef] bg-[linear-gradient(180deg,#f8fbff_0%,#f3f8fd_100%)] p-4 md:p-5">
-          <div className="space-y-4 text-sm leading-7 text-[#4f6378] md:text-base">
-            {aboutParagraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+          <div className="text-sm leading-7 text-[#4f6378] md:text-base">
+            
+            <div className="font-bold">
+              DOST-STII Knowledge Management Hub
+            </div>
+            <p className="text-justify">
+              The DOST-STII Knowledge Management Hub serves as a centralized digital platform for accessing, discovering, and sharing science, technology, and innovation (STI) information generated and curated by the Department of Science and Technology – Science and Technology Information Institute (DOST-STII).
+            </p>
+
+            <p className="text-justify">
+              Designed to support knowledge dissemination and public engagement, the Hub brings together a diverse collection of information resources that document the programs, projects, activities, and achievements of the DOST and its attached agencies. Through a user-friendly and accessible platform, we connect researchers, policymakers, educators, students, media practitioners, and the general public with valuable STI knowledge and resources.
+            </p>
+
+            <div className="font-bold -mb-1 mt-4">
+              What We Offer
+            </div>
+            <div>
+              The Knowledge Management Hub provides access to:
+            </div>
+            <ul className="list-disc pl-5">
+              <li>
+                News articles and feature stories covering DOST initiatives, scientific breakthroughs, and innovation developments;
+              </li>
+              <li>
+                DOST-produced videos, documentaries, interviews, and educational multimedia content;
+              </li>
+              <li>
+                Event coverage, including conferences, forums, seminars, exhibits, and technology showcases;
+              </li>
+              <li>
+                Information on DOST projects, programs, research initiatives, and technology interventions;
+              </li>
+              <li>
+                Publications, reports, knowledge products, and other STI resources;
+              </li>
+              <li>
+                Historical and institutional records that preserve and showcase DOST&apos;s contributions to national development.
+              </li>
+            </ul>
+
+
+            <div className="font-bold mt-4">
+              Our Purpose
+            </div>
+            <p className="text-justify">
+              The Hub supports DOST-STII&apos;s mandate to collect, organize, preserve, and disseminate science and technology information. By transforming information into accessible knowledge resources, we help promote evidence-based decision-making, encourage innovation, and foster a culture of scientific awareness among Filipinos.
+            </p>
+
+            <div className="font-bold mt-4">
+              Our Vision
+            </div>
+            <p className="text-justify">
+              To be the premier gateway to trusted science, technology, and innovation knowledge that empowers learning, discovery, and national development.
+            </p>
+
+
+            <div className="font-bold mt-4">
+              Our Commitment
+            </div>
+            <p className="text-justify">
+              We are committed to making science and technology information more accessible, discoverable, and useful for everyone. Through continuous knowledge management and digital innovation, we strive to preserve institutional knowledge, strengthen information sharing, and support the advancement of science, technology, and innovation in the Philippines.
+            </p>
+
+            <blockquote className="border-l-4 border-blue-500 bg-blue-50 px-4 py-3 italic text-gray-700 rounded-r-md mt-4">
+              “Discover Knowledge. Inspire Innovation.”
+            </blockquote>
+            
+
           </div>
         </div>
       </section>

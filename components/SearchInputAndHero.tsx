@@ -35,11 +35,11 @@ const SearchInputAndHero = () => {
       }}
     >
       <div className="mx-auto flex h-130 w-full max-w-295 flex-col items-center justify-center px-4 text-white">
-        <span className="mb-3 rounded-full border border-[#ffd2d2]/80 bg-[#cf2e2e]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-sm">
+        {/* <span className="mb-3 rounded-full border border-[#ffd2d2]/80 bg-[#cf2e2e]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-sm">
           Knowledge Portal
-        </span>
+        </span> */}
         <h1 className="max-w-3xl text-center text-3xl font-extrabold leading-tight md:text-5xl">
-          Hi! How can we help you discover science today?
+          How can we help you today?
         </h1>
 
         {/* <MainSearchInput /> */}

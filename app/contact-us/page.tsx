@@ -42,7 +42,7 @@ export default function ContactUsPage() {
         <div className="overflow-hidden rounded-xl border border-[#d2deea]">
           <iframe
             title="DOST Office Map"
-            src="https://www.google.com/maps?q=Gen.+Santos+Ave.+Upper+Bicutan,+Taguig+City&output=embed"
+            src="https://www.google.com/maps?q=DOST%20Taguig&output=embed"
             width="100%"
             height="420"
             style={{ border: 0 }}

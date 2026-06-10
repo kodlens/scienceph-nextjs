@@ -24,7 +24,8 @@ const Header = () => {
         <div className="hidden items-center gap-2 md:flex">
           <div>
             <p className="text-2xl font-black leading-none text-[#14345a]">STII-KM</p>
-            <p className="text-xs tracking-wide text-[#cf2e2e]">One Hub for All Knowledge</p>
+            {/* <p className="text-xs tracking-wide text-[#cf2e2e]">One Hub for All Knowledge</p> */}
+            <p className="text-xs tracking-wide text-[#cf2e2e]">Discover Knowledge. Inspire Innovation</p>
           </div>
         </div>
       </div>
@@ -35,16 +36,17 @@ const Header = () => {
           <Navbar />
 
           <div className="flex items-center gap-2">
-            <button
+            <a href="https://www.facebook.com/DOSTph"
               type="button"
+              target="_blank"
               aria-label="Facebook"
               className="grid h-8 w-8 place-content-center rounded-full border border-white/45 bg-white/15 text-white transition hover:-translate-y-0.5 hover:bg-white/25"
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden>
                 <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v5h3v-5h2.1l.4-3H13V9c0-.6.4-1 1-1z" />
               </svg>
-            </button>
-            <button
+            </a>
+            {/* <button
               type="button"
               aria-label="Instagram"
               className="grid h-8 w-8 place-content-center rounded-full border border-white/45 bg-white/15 text-white transition hover:-translate-y-0.5 hover:bg-white/25"
@@ -63,7 +65,7 @@ const Header = () => {
               <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden>
                 <path d="M21 8.5a2.5 2.5 0 0 0-1.8-1.8C17.7 6.3 12 6.3 12 6.3s-5.7 0-7.2.4A2.5 2.5 0 0 0 3 8.5 26 26 0 0 0 3 12a26 26 0 0 0 .3 3.5 2.5 2.5 0 0 0 1.8 1.8c1.5.4 7.2.4 7.2.4s5.7 0 7.2-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 21 12a26 26 0 0 0-.3-3.5zM10 14.8V9.2L15 12l-5 2.8z" />
               </svg>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
