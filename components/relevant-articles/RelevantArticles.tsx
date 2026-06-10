@@ -67,8 +67,9 @@ const RelevantArticles = ({ slug, category, topic }: Props) => {
 
   // useEffect(()=>{
   //   console.log(data);
-    
   // }, [data])
+
+  
 
   if (loading) {
     return <div className='text-sm'>Loading...</div>;
