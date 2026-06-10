@@ -133,7 +133,9 @@ const MaterialSearchResultOthers = ({ query, category, topic, type, onCountChang
               ))}
           </div>
           <h3 className="text-xl font-extrabold leading-tight text-[#005ea8] md:text-2xl">
-            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}&type=${type}`} className="hover:underline">
+            <Link href={`/articles/${item.slug}?s=${query}&category=${category}&topic=${topic}&type=${type}`}
+              prefetch={false} 
+              className="hover:underline">
               {item.title}
             </Link>
           </h3>

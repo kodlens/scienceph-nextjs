@@ -24,6 +24,34 @@ type CategoryWithTopics = CategoryCount & {
   topics?: CategoryTopic[];
 };
 
+function buildSearchHref(params: {
+  query: string;
+  category: string;
+  topic?: string;
+  type: string;
+}) {
+  const searchParams = new URLSearchParams();
+
+  if (params.query) {
+    searchParams.set("s", params.query);
+  }
+
+  if (params.category) {
+    searchParams.set("category", params.category);
+  }
+
+  if (params.topic) {
+    searchParams.set("topic", params.topic);
+  }
+
+  if (params.type && params.type !== "all") {
+    searchParams.set("type", params.type);
+  }
+
+  const queryString = searchParams.toString();
+  return queryString ? `/search?${queryString}` : "/search";
+}
+
 const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
   const [data, setData] = useState<CategoryWithTopics[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -107,7 +135,11 @@ const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
               const isCategoryMatched = item.category_slug === category;
               const isCategorySelected = isCategoryMatched && !topic;
               const isOpen = openCategorySlug === item.category_slug;
-              const categoryHref = `/search?s=${query}&category=${item.category_slug}&topic=&type=${type}`;
+              const categoryHref = buildSearchHref({
+                query,
+                category: item.category_slug,
+                type,
+              });
 
               return (
                 <div
@@ -165,6 +197,7 @@ const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
                     <div className="min-h-0 border-t border-[#dce5ef] px-3 pb-1 pt-1.5">
                       <Link
                         href={categoryHref}
+                        prefetch={false}
                         className={`mb-1 flex items-center justify-between rounded-xl px-3 py-1.5 text-xs font-bold transition ${
                           isCategorySelected
                             ? "bg-[#eaf4ff] text-[#0b66b2]"
@@ -182,7 +215,13 @@ const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
                         return (
                           <Link
                             key={topicItem.slug}
-                            href={`/search?s=${query}&category=${item.category_slug}&topic=${topicItem.slug}&type=${type}`}
+                            href={buildSearchHref({
+                              query,
+                              category: item.category_slug,
+                              topic: topicItem.slug,
+                              type,
+                            })}
+                            prefetch={false}
                             className={`mb-1 flex items-center justify-between rounded-xl px-3 py-1.5 text-xs font-semibold transition last:mb-0 ${
                               isTopicSelected
                                 ? "bg-[#0b66b2] text-white"
