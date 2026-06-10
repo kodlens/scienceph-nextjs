@@ -114,7 +114,9 @@ const ArticleContent = async ({ slug, query, category, type }: Props) => {
             </span>
           </div>
 
-          <RelevantArticles slug={article.slug} />
+          <RelevantArticles slug={article.slug} 
+            category={category ? category : ""} 
+            topic={""} />
         </aside>
       </div>
     </main>
