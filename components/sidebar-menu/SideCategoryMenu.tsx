@@ -86,7 +86,7 @@ const SideCategoryMenu = ({ query, category, topic, type }: Props) => {
       setLoading(false);
     } catch (error: unknown) {
       console.error('Error fetching category counts:', error);
-      setError('Error fetching category counts');
+      setError('We couldn\'t load the data at the moment. Please try again or reload the page.');
     } finally {
       setLoading(false);
     }
